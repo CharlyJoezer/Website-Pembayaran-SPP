@@ -1,0 +1,121 @@
+body{
+    padding: 0;
+    margin: 0;
+    font-family: montserrat;
+}
+h1,h2,h3,h4,h5,h6 {
+    margin: 0px;
+}
+.navbar{
+    width: 100%;
+    height: 60px;
+    box-sizing: border-box;
+    position: sticky;
+    z-index: 2;
+    top: 0;
+    border-bottom: 1px solid #ccc;
+    padding: 3px 5px;
+    background-color: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+.navbar-header {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+}
+.navbar-header img{
+    width: 45px;
+    height: 45px;
+}
+.navbar-header .text-header {
+    padding-left: 5px;
+    font-size: 14px;
+}
+
+.navbar-item{
+    padding-right: 10px;
+}
+.navbar-item .auth-user {
+    display: flex;
+    align-items: center;
+}
+.navbar .navbar-item .auth-user i{
+    margin-right: 8px;
+    color: blue;
+}
+
+/* SIDEBAR */
+.sidebar {
+    position: fixed;
+    width: 20%;
+    box-sizing: border-box;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    margin-top: 60px;
+    box-shadow: 0 0 5px #ccc;
+    display: flex;
+    flex-direction: column;
+}
+.sidebar-search {
+    display: flex;
+    margin: 0 auto;
+    box-sizing: border-box;
+    padding: 15px 5px;
+    width: 100%;
+    background-color: #eee;
+}
+.sidebar-search input{
+    padding: 8px;
+    border: 1px solid #ccc;
+    width: 85%;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+.sidebar-search input:focus{
+    outline: none;
+}
+.sidebar-search button {
+    border: 1px solid #ccc;
+    border-left: none;
+    cursor: pointer;
+    width: 15%;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}   
+.sidebar-search button i {
+    font-size: 90%;
+}
+.sidebar-item {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid #ccc;
+}
+.sidebar-item-link {
+    font-size: 13px;
+    padding: 10px 12px;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+    transition: 0.2s;
+    text-decoration: none;
+    color: black;
+}
+.sidebar-item-link:hover{
+    background-color: #ddd;
+}
+.sidebar-item-link i {
+    margin-right: 8px;
+    font-size: 15px;
+    min-width: 15px;
+    max-width: 15px;
+    color: #3e5292!important;
+}
+
+.content {
+    margin-left: 20%;
+    padding: 10px 15px;
+}
