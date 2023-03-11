@@ -94,6 +94,7 @@ h1,h2,h3,h4,h5,h6 {
     display: flex;
     flex-direction: column;
     border-top: 1px solid #ccc;
+    overflow-y: auto;
 }
 .sidebar-item-link {
     font-size: 13px;
@@ -109,12 +110,11 @@ h1,h2,h3,h4,h5,h6 {
 }
 .sidebar-item-link i {
     margin-right: 8px;
-    font-size: 15px;
-    min-width: 15px;
-    max-width: 15px;
+    font-size: 14px;
+    min-width: 14px;
+    max-width: 14px;
     color: #3e5292!important;
 }
-
 .content {
     margin-left: 20%;
     padding: 10px 15px;

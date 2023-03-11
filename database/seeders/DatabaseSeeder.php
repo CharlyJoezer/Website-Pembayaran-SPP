@@ -3,7 +3,11 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
+use App\Models\Siswa;
+use App\Models\Petugas;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,9 +20,22 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        User::create([
+            'nisn' => '0044059353',
+            'id_kelas' => 1,
+            'id_spp' => 1,
+            'nis' => 6270,
+            'nama' => 'charly joezer',
+            'password' => Hash::make('62700044059353'),
+            'alamat' => 'BDS',
+            'no_telp' => '013858817362'
+        ]);
+        
+        Petugas::create([
+            'username' => 'Skarla',
+            'password' => Hash::make('12345'),
+            'nama_petugas' => 'admin skarla',
+            'level' => 'admin'
+        ]);
     }
 }

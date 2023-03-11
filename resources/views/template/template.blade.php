@@ -7,7 +7,7 @@
     <title>{{ $title }}</title>
     <link rel="stylesheet" href="/css/dashboard.css">
     @if(isset($css))
-    <link rel="stylesheet" href="/css/ {{ $css }}">
+    <link rel="stylesheet" href="/css/ {{ $css }}.css">
     @endif
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
@@ -30,7 +30,15 @@
         <div class="navbar-item">
             <div class="auth-user">
                 <i class="fa-regular fa-user"></i>
-                <div>User</div>
+                <span style="margin-right: 5px;">
+                    @if(Auth::guard('petugas')->check())
+                        {{ auth()->guard('petugas')->user()->username }}
+                    @elseif(Auth::guard('siswa')->check())
+                        {{ auth()->guard('siswa')->user()->nama }}
+                    @endif
+                </span>
+                <a href="/logout"><i class="fa-solid fa-right-from-bracket"></i></a>
+                
             </div>
         </div>
     </div>

@@ -1,6 +1,10 @@
 @extends('template.template')
 @section('content')
 
-<div>Kamu masuk sebagai User</div>
+@if(Auth::guard('petugas')->check())
+    <span>Anda Masuk sebagai, <b>Petugas</b></span>
+@elseif(Auth::guard('siswa')->check())
+    <span>Anda Masuk sebagai, <b>Siswa</b></span>
+@endif
     
 @endsection
