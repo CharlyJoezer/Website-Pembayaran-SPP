@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,10 +25,14 @@ Route::middleware('guest')->group(function(){
 
 });
 Route::middleware('auth:siswa,petugas')->group(function(){
-    Route::get('/logout', [AuthController::class, 'logout']);
-    Route::get('/', function () {
-        return view('beranda',[
-            'title' => 'Beranda | Dashboard'
-        ]);
-    });
+    Route::GET('/logout', [AuthController::class, 'logout']);
+    Route::GET('/', [DashboardController::class, 'dashboard']);
+});
+Route::middleware('auth:petugas')->group(function(){
+    Route::GET('/dashboard/data-siswa', [DashboardController::class, 'viewDataSiswa']);
+    Route::POST('/dashboard/data-siswa/create', [DashboardController::class, 'createDataSiswa']);
+    Route::GET('/dashboard/data-siswa/detail/{nisn}', [DashboardController::class, 'detailDataSiswa']);
+    Route::GET('/dashboard/data-siswa/delete/{nisn}', [DashboardController::class, 'deleteDataSiswa']);
+    Route::POST('/dashboard/data-siswa/edit/{nisn}', [DashboardController::class, 'editDataSiswa']);
+    Route::GET('/dashboard/data-siswa/feature/search/{value}', [DashboardController::class, 'searchDataSiswa']);
 });

@@ -15,11 +15,15 @@ class User extends Authenticatable
     {
         return 'nisn';
     }
-
-    protected $fillable = ['nisn'];
+    protected $fillable = ['nisn','nis','id_kelas','id_spp','nama','alamat','no_telp', 'password', 'foto'];
 
     protected $hidden = [
         'password',
         'remember_token',
     ];
+
+    public function kelas(){
+        return $this->belongsTo(Kelas::class, 'id_kelas', 'id_kelas');
+    }
+
 }

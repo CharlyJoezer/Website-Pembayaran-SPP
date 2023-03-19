@@ -7,7 +7,7 @@
     <title>{{ $title }}</title>
     <link rel="stylesheet" href="/css/dashboard.css">
     @if(isset($css))
-    <link rel="stylesheet" href="/css/ {{ $css }}.css">
+    <link rel="stylesheet" href="/css/{{ $css }}.css">
     @endif
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
@@ -50,12 +50,22 @@
         </div>
         
         <div class="sidebar-item">
-            <a class="sidebar-item-link">
+            <a class="sidebar-item-link" href="/">
                 <i class="fa-sharp fa-solid fa-house" style="color:rgb(0, 204, 255);"></i> Dashboard
             </a>
-            <a class="sidebar-item-link">
+            <a class="sidebar-item-link" href="">
                 <i class="fa-solid fa-coins"></i> Pembayaran Sekolah
             </a>
+            @if (Auth::guard('siswa')->check())
+                
+            @elseif(Auth::guard('petugas')->check())
+            <a class="sidebar-item-link" href="/dashboard/data-siswa">
+                <i class="fa-solid fa-people-group"></i> Data Siswa
+            </a>
+            <a class="sidebar-item-link" href="/dashboard/data-petugas">
+                <i class="fa-solid fa-lock"></i> Data Petugas
+            </a>
+            @endif
         </div>
     </div>
 
