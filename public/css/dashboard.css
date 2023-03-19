@@ -2,6 +2,8 @@ body{
     padding: 0;
     margin: 0;
     font-family: montserrat;
+    background-image: url('https://img.freepik.com/free-vector/white-background-with-wavy-lines_23-2149124447.jpg?w=996&t=st=1679239175~exp=1679239775~hmac=5b475dc5d169b8684e5d99b96a8b3b35f0c4ed2e931ff2169959a7fcfd4b0e20');
+    background-size: cover;
 }
 h1,h2,h3,h4,h5,h6 {
     margin: 0px;
@@ -60,6 +62,7 @@ h1,h2,h3,h4,h5,h6 {
     box-shadow: 0 0 5px #ccc;
     display: flex;
     flex-direction: column;
+    background-color: white;
 }
 .sidebar-search {
     display: flex;
@@ -118,4 +121,7 @@ h1,h2,h3,h4,h5,h6 {
 .content {
     margin-left: 20%;
     padding: 10px 15px;
+}
+.header{
+    margin-bottom: 10px;
 }
