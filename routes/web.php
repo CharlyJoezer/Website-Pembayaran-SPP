@@ -32,7 +32,14 @@ Route::middleware('auth:petugas')->group(function(){
     Route::GET('/dashboard/data-siswa', [DashboardController::class, 'viewDataSiswa']);
     Route::POST('/dashboard/data-siswa/create', [DashboardController::class, 'createDataSiswa']);
     Route::GET('/dashboard/data-siswa/detail/{nisn}', [DashboardController::class, 'detailDataSiswa']);
-    Route::GET('/dashboard/data-siswa/delete/{nisn}', [DashboardController::class, 'deleteDataSiswa']);
     Route::POST('/dashboard/data-siswa/edit/{nisn}', [DashboardController::class, 'editDataSiswa']);
+    Route::GET('/dashboard/data-siswa/delete/{nisn}', [DashboardController::class, 'deleteDataSiswa']);
     Route::GET('/dashboard/data-siswa/feature/search/{value}', [DashboardController::class, 'searchDataSiswa']);
+
+    Route::GET('/dashboard/data-petugas', [DashboardController::class, 'viewDataPetugas']);
+    Route::POST('/dashboard/data-petugas/create', [DashboardController::class, 'createDataPetugas']);
+    Route::GET('/dashboard/data-petugas/detail/{id}', [DashboardController::class, 'detailDataPetugas']);
+    Route::POST('/dashboard/data-petugas/edit/{id}', [DashboardController::class, 'editDataPetugas']);
+    Route::GET('/dashboard/data-petugas/delete/{id}', [DashboardController::class, 'deleteDataPetugas']);
+    Route::GET('/dashboard/data-petugas/feature/search/{value}', [DashboardController::class, 'searchDataPetugas']);
 });

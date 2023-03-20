@@ -15,6 +15,7 @@ class Petugas extends Model
     }
 
     protected $table = 'petugas';
-    protected $fillable = ['id_petugas', 'password'];
+    protected $guarded = ['id_petugas'];
+    protected $hidden = ['password'];
 
 }

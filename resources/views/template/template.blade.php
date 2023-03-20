@@ -29,10 +29,10 @@
 
         <div class="navbar-item">
             <div class="auth-user">
-                <i class="fa-regular fa-user"></i>
-                <span style="margin-right: 5px;">
+                <span style="margin-right: 5px;font-size:14px;">
+                    <i class="fa-regular fa-user"></i>
                     @if(Auth::guard('petugas')->check())
-                        {{ auth()->guard('petugas')->user()->username }}
+                        {{ auth()->guard('petugas')->user()->nama_petugas }}
                     @elseif(Auth::guard('siswa')->check())
                         {{ auth()->guard('siswa')->user()->nama }}
                     @endif
@@ -64,6 +64,9 @@
             </a>
             <a class="sidebar-item-link" href="/dashboard/data-petugas">
                 <i class="fa-solid fa-lock"></i> Data Petugas
+            </a>
+            <a class="sidebar-item-link" href="/dashboard/data-kelas">
+                <i class="fa-solid fa-layer-group"></i> Data Kelas
             </a>
             @endif
         </div>
