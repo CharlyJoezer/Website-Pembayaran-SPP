@@ -1,8 +1,6 @@
 $('#add-data').click(function(){
-    $('#text-header-popup').html('Form Data Petugas')
+    $('#text-header-popup').html('Form Data Kelas')
     $('.popup-add-data').attr('attr-mode', 'create')
-    $('.box-input-password').css('display', 'table-row')
-    $('#input-password').prop('disabled', false)
     $('.wrapper-popup').toggleClass('display')
     setTimeout(() => {
         $('.popup-add-data').toggleClass('down')
@@ -13,8 +11,8 @@ $('.popup-add-data').click(function(event){
 })
 $('.wrapper-popup, .close-form, .cancel-form').click(function(event){
     if($('.popup-add-data').attr('attr-mode') == 'edit'){
-        $('.form-input-data-petugas').trigger('reset')
-        $('.form-input-data-petugas').attr('action', 'data-petugas/create')
+        $('.form-input-data-kelas').trigger('reset')
+        $('.form-input-data-kelas').attr('action', 'data-kelas/create')
     }
     $('.popup-add-data').toggleClass('down')
     setTimeout(() => {
@@ -24,25 +22,22 @@ $('.wrapper-popup, .close-form, .cancel-form').click(function(event){
 
 // BUTTON EDIT SISWA
 $(document).on('click','.button-edit',function(){
+    $('#text-header-popup').html('Edit Data Kelas')
     const getDataJson = JSON.parse($(this).attr('attr-data-string'))
-    $('.box-input-password').css('display', 'none')
-    $('#input-password').prop('disabled', true)
     $('.wrapper-popup').toggleClass('display')
     setTimeout(() => {
         $('.popup-add-data').toggleClass('down')
-    }, 1);
-    $('#text-header-popup').html('Edit Data Petugas')
+    }, 0);
     $('.popup-add-data').attr('attr-mode', 'edit')
-    $('.form-input-data-petugas').attr('action', `data-petugas/edit/${getDataJson['id_petugas']}`)
-    $('#input-username').val(getDataJson['username'])
-    $('#input-nama').val(getDataJson['nama_petugas'])
-    $(`#level-${getDataJson['level']}`).prop('selected', true) // akan dirubah
+    $('.form-input-data-kelas').attr('action', `data-kelas/edit/${getDataJson['id_kelas']}`)
+    $('#input-kelas').val(getDataJson['nama_kelas'])
+    $('#input-jurusan').val(getDataJson['kompetensi_keahlian'])
 });
 
 
 // BUTTON DELETE
 $(document).on('click','.button-delete',function(){
-    $('#confirm-delete-button').attr('href', '/dashboard/data-petugas/delete/'+$(this).attr('attr-id'))
+    $('#confirm-delete-button').attr('href', '/dashboard/data-kelas/delete/'+$(this).attr('attr-id'))
     $('.wrapper-popup2').toggleClass('display')
     setTimeout(() => {
         $('.popup-delete-data').toggleClass('down')
@@ -58,23 +53,24 @@ $('.popup-delete-data').click(function(event){
         event.stopPropagation();
 })
 
-
 // FITUR SEARCH
 $('#button-search').click(function(){
     const getSearch = $('#input-search').val()
     if(getSearch == ''){
         $('.wrapper-popup').toggleClass('display')
-        window.location = "/dashboard/data-petugas";
+        window.location = "/dashboard/data-kelas";
         return false;
     }
     $('.wrapper-popup').toggleClass('display')
-    fetch(`/dashboard/data-petugas/feature/search/${getSearch}`)
+    fetch(`/dashboard/data-kelas/feature/search/${getSearch}`)
     .then(response => response.text())
     .then(data => {
         $('.wrapper-popup').toggleClass('display')
         $('#data-table').html(data)
     })
-    .catch(error => console.error(error))
+    .catch(error => {
+        return false;
+    })
     })
     
     $('#input-search').on('keydown', function(event){
