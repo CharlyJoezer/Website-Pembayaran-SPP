@@ -28,7 +28,6 @@
     <div class="wrapper-tabel-data-petugas">
         <table border="1" cellpadding="5">
             <thead>
-                <th>No</th>
                 <th>Username</th>
                 <th>Nama Petugas</th>
                 <th>Level</th>
@@ -37,7 +36,6 @@
             <tbody id="data-table">
                 @foreach ($data as $item)
                 <tr>
-                    <td>{{ $item->id_petugas }}</td>
                     <td>{{ $item->username }}</td>
                     <td>{{ $item->nama_petugas }}</td>
                     <td>{{ $item->level }}</td>
