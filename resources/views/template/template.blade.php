@@ -29,15 +29,16 @@
 
         <div class="navbar-item">
             <div class="auth-user">
-                <span style="margin-right: 5px;font-size:14px;">
-                    <i class="fa-regular fa-user"></i>
+                <span style="margin-right: 15px;font-size:14px;">
                     @if(Auth::guard('petugas')->check())
                         {{ auth()->guard('petugas')->user()->nama_petugas }}
+                        <div style="font-size:10px;color:#aaa;">Level : {{ auth()->guard('petugas')->user()->level }}</div>
                     @elseif(Auth::guard('siswa')->check())
                         {{ auth()->guard('siswa')->user()->nama }}
+                        <div style="font-size:10px;color:#aaa;">Siswa</div>
                     @endif
                 </span>
-                <a href="/logout"><i class="fa-solid fa-right-from-bracket"></i></a>
+                <a href="/logout" title="Logout" style="font-size:14px;color:red;"><i class="fa-solid fa-right-from-bracket"></i></a>
                 
             </div>
         </div>
@@ -50,30 +51,45 @@
         </div>
         
         <div class="sidebar-item">
-            <a class="sidebar-item-link" href="/">
-                <i class="fa-sharp fa-solid fa-house" style="color:rgb(0, 204, 255);"></i> Dashboard
-            </a>
-            <a class="sidebar-item-link" href="">
-                <i class="fa-solid fa-coins"></i> Pembayaran Sekolah
+            <a class="sidebar-item-link" href="/" style="@if(Request::is('/')) border-bottom:2px solid white;background-color:#222; @endif">
+                <i class="fa-sharp fa-solid fa-house" style="color: white;"></i>
+                <span>Dashboard</span>
             </a>
             @if (Auth::guard('siswa')->check())
                 
             @elseif(Auth::guard('petugas')->check())
-            <a class="sidebar-item-link" href="/dashboard/data-siswa">
-                <i class="fa-solid fa-people-group"></i> Data Siswa
+            <a class="sidebar-item-link" href="/dashboard/data-siswa" style="@if(Request::is('dashboard/data-siswa')) border-bottom:2px solid white;background-color:#222; @endif">
+                <i class="fa-solid fa-people-group" style="color:green;"></i>
+                <span>Data Siswa</span>
             </a>
-            <a class="sidebar-item-link" href="/dashboard/data-petugas">
-                <i class="fa-solid fa-lock"></i> Data Petugas
+            <a class="sidebar-item-link" href="/dashboard/data-petugas" style="@if(Request::is('dashboard/data-petugas')) border-bottom:2px solid white;background-color:#222; @endif">
+                <i class="fa-solid fa-lock" style="color:red;"></i>
+                <span>Data Petugas</span>
             </a>
-            <a class="sidebar-item-link" href="/dashboard/data-kelas">
-                <i class="fa-solid fa-layer-group"></i> Data Kelas
+            <a class="sidebar-item-link" href="/dashboard/data-kelas" style="@if(Request::is('dashboard/data-kelas')) border-bottom:2px solid white;background-color:#222; @endif">
+                <i class="fa-solid fa-school" style="color:rgb(0, 145, 255)"></i>
+                <span>Data Kelas</span>
+            </a>
+            <a class="sidebar-item-link" href="/dashboard/data-spp" style="@if(Request::is('dashboard/data-spp')) border-bottom:2px solid white;background-color:#222; @endif">
+                <i class="fa-solid fa-tags" style="color:orange;"></i>
+                <span>Data SPP</span>
             </a>
             @endif
+            <a class="sidebar-item-link" href="" @if(Request::is('dashboard/data-spssp')) style="border-bottom:2px solid white;background-color:#222;" @endif>
+                <i class="fa-solid fa-coins" style="color:gold;"></i>
+                <span>Entry Pembayaran</span>
+            </a>
+            <a class="sidebar-item-link" href="" @if(Request::is('dashboard/data-spssp')) style="border-bottom:2px solid white;background-color:#222;" @endif>
+                <i class="fa-solid fa-file-lines" style="color:black;"></i>
+                <span>Riwayat Pembayaran</span>
+            </a>
         </div>
+
     </div>
 
     <div class="content">
         @yield('content')
+        {{-- <div class="copyright">Copyright &#169; Smk Airlangga Balikpapan 2023</div> --}}
     </div>
 
     <script src="/js/dashboard.js"></script>

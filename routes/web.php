@@ -51,4 +51,12 @@ Route::middleware('auth:petugas')->group(function(){
     Route::POST('/dashboard/data-kelas/edit/{id}', [DashboardController::class, 'editDataKelas']);
     Route::GET('/dashboard/data-kelas/delete/{id}', [DashboardController::class, 'deleteDataKelas']);
     Route::GET('/dashboard/data-kelas/feature/search/{value}', [DashboardController::class, 'searchDataKelas']);
+
+    // ROUTE DATA SPP
+    Route::GET('/dashboard/data-spp', [DashboardController::class, 'viewDataSpp']);
+    Route::POST('/dashboard/data-spp/create', [DashboardController::class, 'createDataSpp']);
+    // Route::GET('/dashboard/data-spp/detail/{id}', [DashboardController::class, 'detailDataSpp']);
+    Route::POST('/dashboard/data-spp/edit/{id}', [DashboardController::class, 'editDataSpp']);
+    Route::GET('/dashboard/data-spp/delete/{id}', [DashboardController::class, 'deleteDataSpp']);
+    Route::GET('/dashboard/data-spp/feature/search/{value}', [DashboardController::class, 'searchDataSpp']);
 });

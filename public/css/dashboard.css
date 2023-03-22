@@ -15,9 +15,8 @@ h1,h2,h3,h4,h5,h6 {
     position: sticky;
     z-index: 2;
     top: 0;
-    border-bottom: 1px solid #ccc;
     padding: 3px 5px;
-    background-color: #eee;
+    background-color: #333;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -35,6 +34,7 @@ h1,h2,h3,h4,h5,h6 {
 .navbar-header .text-header {
     padding-left: 5px;
     font-size: 14px;
+    color: white;
 }
 
 .navbar-item{
@@ -43,10 +43,10 @@ h1,h2,h3,h4,h5,h6 {
 .navbar-item .auth-user {
     display: flex;
     align-items: center;
+    color: white;
 }
 .navbar .navbar-item .auth-user i{
     margin-right: 8px;
-    color: blue;
 }
 
 /* SIDEBAR */
@@ -59,18 +59,18 @@ h1,h2,h3,h4,h5,h6 {
     left: 0;
     bottom: 0;
     margin-top: 60px;
-    box-shadow: 0 0 5px #ccc;
+    box-shadow: 0 0 5px #aaa;
     display: flex;
     flex-direction: column;
-    background-color: white;
+    background-color: #333;
 }
 .sidebar-search {
     display: flex;
     margin: 0 auto;
     box-sizing: border-box;
-    padding: 15px 5px;
+    padding: 15px 12px;
     width: 100%;
-    background-color: #eee;
+    background-color: #333;
 }
 .sidebar-search input{
     padding: 8px;
@@ -96,32 +96,57 @@ h1,h2,h3,h4,h5,h6 {
 .sidebar-item {
     display: flex;
     flex-direction: column;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid #aaa;
     overflow-y: auto;
 }
 .sidebar-item-link {
     font-size: 13px;
-    padding: 10px 12px;
-    border-bottom: 1px solid #ccc;
+    padding: 18px 12px;
+    border-bottom: 2px solid #555;
     cursor: pointer;
     transition: 0.2s;
     text-decoration: none;
-    color: black;
+    color: white;
+    box-sizing: border-box;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
 }
 .sidebar-item-link:hover{
-    background-color: #ddd;
+    background-color: #222;
 }
 .sidebar-item-link i {
-    margin-right: 8px;
-    font-size: 14px;
-    min-width: 14px;
-    max-width: 14px;
-    color: #3e5292!important;
+    margin-right: 15px;
+    font-size: 15px;
+    min-width: 15px;
+    max-width: 15px;
+}
+.sidebar-item::-webkit-scrollbar {
+    width: 5px;
+}
+.sidebar-item::-webkit-scrollbar-track {
+    background: #333;
+}
+.sidebar-item::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background: #555;
+    transition: 0.2s;
+}
+.sidebar-item::-webkit-scrollbar-thumb:hover {
+    background: #555;
+    transition: 0.2s;
 }
 .content {
     margin-left: 20%;
     padding: 10px 15px;
+    position: relative;
 }
 .header{
     margin-bottom: 10px;
+}
+.copyright{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }

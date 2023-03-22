@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Spp;
 use App\Models\User;
 use App\Models\Kelas;
 use App\Models\Siswa;
@@ -42,6 +43,11 @@ class DatabaseSeeder extends Seeder
         Kelas::create([
             'nama_kelas' => 'XII',
             'kompetensi_keahlian' => 'RPL'
+        ]);
+
+        Spp::create([
+            'tahun' => 2023,
+            'nominal' => "1500000"
         ]);
     }
 }
