@@ -43,12 +43,12 @@
     align-items: center;
     padding: 0px 8px;
     color: white;
-    background-color: rgb(0, 140, 255);
+    background-color: rgb(10, 86, 217);
     cursor: pointer;
     transition: 0.2s;
 }
 .button-search-data span:hover{
-    background-color: rgb(0, 123, 224);
+    background-color: rgb(7, 77, 197);
 }
 .button-search-data input{
     outline: none;
@@ -68,7 +68,7 @@
 .wrapper-tabel-data-spp table thead th {
     padding: 15px;
     font-size: 14px;
-    background-color: rgb(0, 166, 255);
+    background-color: rgb(10, 86, 217);
     color: white;
 }   
 .wrapper-tabel-data-spp table tr{
@@ -140,7 +140,7 @@
     align-items: center;
     padding: 15px 18px;
     font-size: 14px;
-    background-color: rgb(0, 166, 255);
+    background-color: rgb(10, 86, 217);
     color: white;
     font-weight: 500;
 }
@@ -236,7 +236,7 @@
     left: 0;
     right: 0;
     z-index: 1;
-    background-color: rgb(0, 166, 255);
+    background-color: rgb(10, 86, 217);
     display: flex;  
     justify-content: end;
     padding: 8px;

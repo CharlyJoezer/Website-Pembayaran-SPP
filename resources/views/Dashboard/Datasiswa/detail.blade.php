@@ -48,7 +48,7 @@
 
     
     <div class="detail-back-button">
-        <a href="/dashboard/data-siswa"><i class="fa-solid fa-arrow-left"></i> Kembali</a>
+        <a onclick="history.back()"><i class="fa-solid fa-arrow-left"></i> Kembali</a>
     </div>
 
 

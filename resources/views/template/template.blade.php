@@ -59,11 +59,11 @@
                 
             @elseif(Auth::guard('petugas')->check())
             <a class="sidebar-item-link" href="/dashboard/data-siswa" style="@if(Request::is('dashboard/data-siswa')) border-bottom:2px solid white;background-color:#222; @endif">
-                <i class="fa-solid fa-people-group" style="color:green;"></i>
+                <i class="fa-solid fa-people-group" style="color:rgb(0, 146, 0);"></i>
                 <span>Data Siswa</span>
             </a>
             <a class="sidebar-item-link" href="/dashboard/data-petugas" style="@if(Request::is('dashboard/data-petugas')) border-bottom:2px solid white;background-color:#222; @endif">
-                <i class="fa-solid fa-lock" style="color:red;"></i>
+                <i class="fa-solid fa-lock" style="color:rgb(219, 0, 0);"></i>
                 <span>Data Petugas</span>
             </a>
             <a class="sidebar-item-link" href="/dashboard/data-kelas" style="@if(Request::is('dashboard/data-kelas')) border-bottom:2px solid white;background-color:#222; @endif">
