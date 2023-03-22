@@ -1,6 +1,5 @@
 @foreach ($data as $item)
 <tr>
-    <td>{{ $item->id_petugas }}</td>
     <td>{{ $item->username }}</td>
     <td>{{ $item->nama_petugas }}</td>
     <td>{{ $item->level }}</td>

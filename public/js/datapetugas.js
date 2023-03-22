@@ -17,9 +17,7 @@ $('.wrapper-popup, .close-form, .cancel-form').click(function(event){
         $('.form-input-data-petugas').attr('action', 'data-petugas/create')
     }
     $('.popup-add-data').toggleClass('down')
-    setTimeout(() => {
-        $('.wrapper-popup').toggleClass('display')
-    }, 200);
+    $('.wrapper-popup').toggleClass('display')
 })
 
 // BUTTON EDIT SISWA
@@ -30,7 +28,7 @@ $(document).on('click','.button-edit',function(){
     $('.wrapper-popup').toggleClass('display')
     setTimeout(() => {
         $('.popup-add-data').toggleClass('down')
-    }, 1);
+    }, 0);
     $('#text-header-popup').html('Edit Data Petugas')
     $('.popup-add-data').attr('attr-mode', 'edit')
     $('.form-input-data-petugas').attr('action', `data-petugas/edit/${getDataJson['id_petugas']}`)
@@ -67,11 +65,9 @@ $('#button-search').click(function(){
         window.location = "/dashboard/data-petugas";
         return false;
     }
-    $('.wrapper-popup').toggleClass('display')
     fetch(`/dashboard/data-petugas/feature/search/${getSearch}`)
     .then(response => response.text())
     .then(data => {
-        $('.wrapper-popup').toggleClass('display')
         $('#data-table').html(data)
     })
     .catch(error => console.error(error))

@@ -16,9 +16,7 @@ $('.wrapper-popup, .close-form, .cancel-form').click(function(event){
         $('.form-input-data-spp').attr('action', 'data-spp/create')
     }
     $('.popup-add-data').toggleClass('down')
-    setTimeout(() => {
-        $('.wrapper-popup').toggleClass('display')
-    }, 200);
+    $('.wrapper-popup').toggleClass('display')
 })
 
 // BUTTON EDIT SISWA
@@ -76,12 +74,11 @@ $('#button-search').click(function(){
         window.location = "/dashboard/data-spp";
         return false;
     }
-    $('.wrapper-popup').toggleClass('display')
     fetch(`/dashboard/data-spp/feature/search/${getSearch}`)
     .then(response => response.text())
     .then(data => {
-        $('.wrapper-popup').toggleClass('display')
         $('#data-table').html(data)
+        console.log('test')
     })
     .catch(error => {
         return false;

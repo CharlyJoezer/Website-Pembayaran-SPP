@@ -19,9 +19,7 @@ $('.wrapper-popup, .close-form, .cancel-form').click(function(event){
         $('.form-input-data-siswa').attr('action', 'data-siswa/create')
     }
     $('.popup-add-data').toggleClass('down')
-    setTimeout(() => {
-        $('.wrapper-popup').toggleClass('display')
-    }, 200);
+    $('.wrapper-popup').toggleClass('display')
 })
 
 // BUTTON EDIT SISWA
@@ -30,7 +28,7 @@ $(document).on('click','.button-edit',function(){
     $('.wrapper-popup').toggleClass('display')
     setTimeout(() => {
         $('.popup-add-data').toggleClass('down')
-    }, 1);
+    }, 0);
     $('#text-header-popup').html('Edit Data Siswa')
     $('.box-input-file').children().eq(0).css('display', 'block')
     $('.box-input-file').children().eq(1).prop('required', false)
@@ -94,11 +92,9 @@ if(getSearch == ''){
     window.location = "/dashboard/data-siswa";
     return false;
 }
-$('.wrapper-popup').toggleClass('display')
 fetch(`/dashboard/data-siswa/feature/search/${getSearch}`)
 .then(response => response.text())
 .then(data => {
-    $('.wrapper-popup').toggleClass('display')
     $('#data-table').html(data)
     $('#all-script').html('test')
 })

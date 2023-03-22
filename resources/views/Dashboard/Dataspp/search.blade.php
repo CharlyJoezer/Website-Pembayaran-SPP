@@ -2,6 +2,7 @@
 <tr>
     <td>{{ $item->tahun }}</td>
     <td>{{ number_format($item->nominal,0,'.','.') }}</td>
+    <td>{{ date('d-M-Y', strtotime($item->created_at)) }}</td>
     <td>
         <div class="wrapper-action">
             {{-- <a href="/dashboard/data-kelas/detail/{{ $item->id_kelas }}">
