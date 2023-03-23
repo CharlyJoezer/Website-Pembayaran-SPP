@@ -24,7 +24,7 @@
 </div>
 
 
-{{-- TABEL kelas --}}
+{{-- TABEL SPP --}}
 <div class="wrapper-tabel-data-spp">
     <table border="1" cellpadding="5">
         <thead>

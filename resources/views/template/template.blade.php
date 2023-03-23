@@ -75,12 +75,12 @@
                 <span>Data SPP</span>
             </a>
             @endif
-            <a class="sidebar-item-link" href="" @if(Request::is('dashboard/data-spssp')) style="border-bottom:2px solid white;background-color:#222;" @endif>
+            <a class="sidebar-item-link" href="/dashboard/entry-pembayaran-spp" @if(Request::is('dashboard/data-spssp')) style="border-bottom:2px solid white;background-color:#222;" @endif>
                 <i class="fa-solid fa-coins" style="color:gold;"></i>
                 <span>Entry Pembayaran</span>
             </a>
             <a class="sidebar-item-link" href="" @if(Request::is('dashboard/data-spssp')) style="border-bottom:2px solid white;background-color:#222;" @endif>
-                <i class="fa-solid fa-file-lines" style="color:black;"></i>
+                <i class="fa-solid fa-file-lines" style="color:white;"></i>
                 <span>Riwayat Pembayaran</span>
             </a>
         </div>

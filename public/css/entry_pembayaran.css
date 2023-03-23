@@ -58,32 +58,41 @@
     padding: 7px 10px;
 }
 
-
-.wrapper-tabel-data-siswa table{
+.wrapper-tabel-data-eps table{
     width: 100%;
     border-collapse: collapse;
     border-color: #ccc;
     background-color: white;
 }
-.wrapper-tabel-data-siswa table thead th {
+.wrapper-tabel-data-eps table thead th {
     padding: 15px;
     font-size: 14px;
     background-color: rgb(10, 86, 217);
     color: white;
 }   
-.wrapper-tabel-data-siswa table tr{
+.wrapper-tabel-data-eps table tr{
     transition: 0.2s;
 }
-.wrapper-tabel-data-siswa table tr:hover{
+.wrapper-tabel-data-eps table tr:hover{
     background-color: rgba(0, 0, 0, 0.096);
 }
-.wrapper-tabel-data-siswa table tr td {
+.wrapper-tabel-data-eps table tr td {
     text-align: center;
     font-size: 13px;
     padding: 15px 5px;
 }
-.foto-siswa{
-    object-fit: cover;
+.button-history{
+    padding: 5px 10px;
+    border: 1px solid rgb(0, 203, 217);
+    border-radius: 3px;
+    color: rgb(0, 203, 217);
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.2s;
+}
+.button-history:hover{
+    background-color: rgb(0, 203, 217);
+    color: white;
 }
 .wrapper-action {
     display: flex;
@@ -101,7 +110,6 @@
     background-color: #ccc;
     filter: brightness(120%);
 }
-
 
 .wrapper-popup, .wrapper-popup2{
     position: fixed;
@@ -123,9 +131,10 @@
     transform: translateY(-110%);
     display: flex;
     flex-direction: column;
+    height: fit-content;
     max-height: 100%;
     overflow: hidden;
-    padding-bottom: 95px;
+    padding-bottom: 70px;
     box-shadow: 0 0 5px #aaa;
     opacity: 0;
 }
@@ -200,20 +209,20 @@
     filter: brightness(120%);
     font-weight: bold;
 }
-.form-input-data-siswa {
+.form-input-data-eps {
     min-height: 100%;
 }
 .table-form{
     max-height: 100%;
     overflow: auto;
 }
-.form-input-data-siswa table{
+.form-input-data-eps table{
     width: 100%;
 }
-.form-input-data-siswa table tr td:nth-child(1){
+.form-input-data-eps table tr td:nth-child(1){
     font-size: 14px;
 }
-.form-input-data-siswa table input{
+.form-input-data-eps table input{
     width: 100%;
     box-sizing: border-box;
     border: 1px solid #aaa;
@@ -223,7 +232,7 @@
     font-size: 14px;
     font-family: montserrat;
 }
-.form-input-data-siswa table select{
+.form-input-data-eps table select{
     width: 100%;
     padding: 10px;
     border: 1px solid #aaa;
@@ -231,10 +240,10 @@
     border-radius: 5px;
     font-family: montserrat;
 }
-.form-input-data-siswa table select:focus{
+.form-input-data-eps table select:focus{
     outline: none;
 }
-.form-input-data-siswa table input:focus{
+.form-input-data-eps table input:focus{
     outline: none;
 }
 .box-input {
@@ -284,55 +293,77 @@
     background-color: rgb(0, 207, 69);
 }
 
+/* HALAMAN DETAIL */
+.wrapper-data-siswa-and-history{
+    background-color: white;
+    padding: 5px 15px;
+    box-shadow: 0 0 5px #ccc;
+}
+.detail-header{
+    background-color: rgb(10, 86, 217);
+    color: white;
+    padding: 12px 15px;
+    font-weight: bold;
+    box-shadow: 0 0 5px #ccc;
 
-    /* HALAMAN DETAIL */
-    .detail-header{
-        background-color: rgb(10, 86, 217);
-        color: white;
-        padding: 12px 15px;
-        font-weight: bold;
-        box-shadow: 0 0 5px #ccc;
+}
+.detail-wrapper-data-siswa{
+    border-top: none;
+    display: flex;
+    margin-bottom: 15px;
+}
+.detail-data-siswa-left img{
+    width: 180px;
+    height: 250px;
+    object-fit: cover;
+}
+.detail-data-siswa-right{
+    padding-left: 10px;
+    font-size: 14px;
+}
+.detail-wrapper-data-siswa table tr td{
+    padding-bottom: 15px;
+    padding-right: 10px;
+}
+.detail-wrapper-data-siswa table tr td:nth-child(2){
+    font-weight: bold;
+    padding-right: 20px;
+}
+.detail-wrapper-data-siswa table tr td:nth-child(1){
+    font-weight: bold;
+}
 
-    }
-    .detail-wrapper-data-siswa{
-        padding: 5px 15px;
-        box-shadow: 0 0 5px #ccc;
-        border-top: none;
-        display: flex;
-        background-color: white;
-    }
-    .detail-data-siswa-left img{
-        width: 180px;
-        height: 250px;
-        object-fit: cover;
-    }
-    .detail-data-siswa-right{
-        padding-left: 10px;
-        font-size: 14px;
-    }
-    .detail-wrapper-data-siswa table tr td{
-        padding-bottom: 15px;
-        padding-right: 10px;
-    }
-    .detail-wrapper-data-siswa table tr td:nth-child(2){
-        font-weight: bold;
-        padding-right: 20px;
-    }
-    .detail-wrapper-data-siswa table tr td:nth-child(1){
-        font-weight: bold;
-    }
-    .detail-back-button{
-        margin-top: 15px;
-    }
-    .detail-back-button a {
-        text-decoration: none;
-        font-size: 14px;
-        padding: 8px 12px;
-        background-color: #aaa;
-        color: white;
-        border-radius: 3px;
-        transition: 0.2s;
-    }
-    .detail-back-button a:hover{
-        background-color: #555;
-    }
+
+/* HISTORY PEMBAYARAN */
+.box-history-pembayaran{
+    padding: 10px 15px;
+    border-top: 4px solid rgb(0, 173, 189);
+    box-shadow: 0 0 5px #ccc;
+    margin-bottom: 10px;
+    background-color: white;
+    border-radius: 3px;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.box-history-pembayaran table tr td:nth-child(2){
+    padding-left: 10px;
+}
+.box-history-pembayaran table tr td:nth-child(3){
+    padding-left: 12px;
+}
+.button-delete-history-pembayaran{
+    border: 1px solid rgb(255, 0, 0);
+    border-radius: 3px;
+    background-color: white;
+    color: rgb(255, 0, 0);
+    padding: 8px 10px;
+    cursor: pointer;
+    transition: 0.1s ease-in-out;
+    font-weight: 600;
+}
+.button-delete-history-pembayaran:hover{
+    background-color: rgb(214, 0, 0);
+    color: white;
+}

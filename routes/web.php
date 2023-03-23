@@ -55,8 +55,18 @@ Route::middleware('auth:petugas')->group(function(){
     // ROUTE DATA SPP
     Route::GET('/dashboard/data-spp', [DashboardController::class, 'viewDataSpp']);
     Route::POST('/dashboard/data-spp/create', [DashboardController::class, 'createDataSpp']);
-    // Route::GET('/dashboard/data-spp/detail/{id}', [DashboardController::class, 'detailDataSpp']);
     Route::POST('/dashboard/data-spp/edit/{id}', [DashboardController::class, 'editDataSpp']);
     Route::GET('/dashboard/data-spp/delete/{id}', [DashboardController::class, 'deleteDataSpp']);
     Route::GET('/dashboard/data-spp/feature/search/{value}', [DashboardController::class, 'searchDataSpp']);
+
+
+    // ENTRY PEMBAYARAN SPP
+    Route::GET('/dashboard/entry-pembayaran-spp', [DashboardController::class, 'viewEntryPembayaranSpp']);
+    Route::POST('/dashboard/entry-pembayaran-spp/create', [DashboardController::class, 'createEntryPembayaranSpp']);
+    Route::GET('/dashboard/data-entry-pembayaran-spp/feature/search/{val}', [DashboardController::class, 'searchEntryPembayaranSpp']);
+    
+    // HISTORY PEMBAYARAN UNTUK PETUGAS
+    Route::GET('/dashboard/entry-pembayaran-spp/history/{nisn}', [DashboardController::class, 'viewHistoryPembayaran']);
+    Route::GET('/dashboard/data-history-pembayaran/delete/{id}', [DashboardController::class, 'deleteHistoryPembayaran']);
+    
 });
