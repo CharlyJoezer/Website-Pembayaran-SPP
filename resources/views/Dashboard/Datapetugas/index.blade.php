@@ -1,10 +1,14 @@
 @extends('Template.template')
 @section('content')
     
-    <div class="header">
-        <div style="font-size:16px;font-weight:500;color:#555;">Data Petugas</div>
-        <div style="background-color:#aaa;height:3px;margin:5px 0px;border-radius:3px;"></div>
+<div class="wrapper-all">
+    <div class="header" style="padding:5px 1px;">
+        <div style="font-size:16px;font-weight:500;color:#555;display:flex;align-items:flex-end;">
+            <i class="fa-solid fa-user-gear" style="color:rgb(0, 173, 189);font-size:20px;"></i>
+            <span style="font-size:17px;padding-left: 5px;">Data Petugas</span>
+        </div>
     </div>
+    <div style="background-color:rgb(0, 173, 189) ;height:3px;margin:5px 0px;border-radius:3px;"></div>
 
     <div class="feature">
         <div style="display:flex;">
@@ -135,7 +139,7 @@
             </div>
         </div>
     </div>
-
+</div>
     <script src="/js/datapetugas.js"></script>
     
     @if($errors->any())

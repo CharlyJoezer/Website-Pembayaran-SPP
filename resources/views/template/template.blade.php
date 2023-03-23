@@ -22,8 +22,8 @@
         <div class="navbar-header">
             <img src="/asset/logo-sekolah.png" alt="">
             <div class="text-header">
-                <h3>SMK Airlangga Balikpapan</h3>
-                <div style="font-size:12px;">Pembayaran SPP Online</div>
+                <h4>SMK Airlangga Balikpapan</h4>
+                <div style="font-size:11px;">Pembayaran SPP Online</div>
             </div>
         </div>
 
@@ -31,7 +31,7 @@
             <div class="auth-user">
                 <span style="margin-right: 15px;font-size:14px;">
                     @if(Auth::guard('petugas')->check())
-                        {{ auth()->guard('petugas')->user()->nama_petugas }}
+                        <span style="font-weight:500;">{{ auth()->guard('petugas')->user()->nama_petugas }}</span>
                         <div style="font-size:10px;color:#aaa;">Level : {{ auth()->guard('petugas')->user()->level }}</div>
                     @elseif(Auth::guard('siswa')->check())
                         {{ auth()->guard('siswa')->user()->nama }}
@@ -45,42 +45,53 @@
     </div>
 
     <div class="sidebar">
-        <div class="sidebar-search">
-            <input type="text" placeholder="Search">
-            <button><i class="fa-solid fa-magnifying-glass"></i></button>
+        <div class="sidebar-top">
+            @if(Auth::guard('petugas')->check())
+                <img src="https://img.freepik.com/free-vector/illustration-businessman_53876-5856.jpg?w=740&t=st=1679310834~exp=1679311434~hmac=94071d701abdc8e5bcc3528214656f999c0f7b05ea25f3e1b59bbdefffd9b453">
+                <div class="auth-user-biodata" style="padding-left: 8px;">
+                    <div style="font-size:14px;font-weight:600;">{{ auth()->guard('petugas')->user()->nama_petugas }}</div>
+                    <div style="font-size:10px;color:#555;">
+                        Level : {{ auth()->guard('petugas')->user()->level }}
+                    </div>
+                </div>
+            @elseif(Auth::guard('siswa')->check())
+                <div class="auth-user-biodata">
+                    <div>{{ auth()->guard('siswa')->user()->nama }}</div>
+                    <div style="font-size:10px;color:#aaa;">Siswa</div>
+                </div>
+            @endif
         </div>
-        
         <div class="sidebar-item">
-            <a class="sidebar-item-link" href="/" style="@if(Request::is('/')) border-bottom:2px solid white;background-color:#222; @endif">
-                <i class="fa-sharp fa-solid fa-house" style="color: white;"></i>
+            <a class="sidebar-item-link" href="/" style="@if(Request::is('/')) background-color: #eee; border-left:4px solid rgb(0, 173, 189); @endif">
+                <i class="fa-sharp fa-solid fa-house" style="color: #aaa;"></i>
                 <span>Dashboard</span>
             </a>
             @if (Auth::guard('siswa')->check())
                 
             @elseif(Auth::guard('petugas')->check())
-            <a class="sidebar-item-link" href="/dashboard/data-siswa" style="@if(Request::is('dashboard/data-siswa')) border-bottom:2px solid white;background-color:#222; @endif">
-                <i class="fa-solid fa-people-group" style="color:rgb(0, 146, 0);"></i>
+            <a class="sidebar-item-link" href="/dashboard/data-siswa" style="@if(Request::is('dashboard/data-siswa')) background-color: #eee; border-left:4px solid rgb(0, 173, 189); @endif">
+                <i class="fa-solid fa-user-large" style="color:rgb(0, 146, 0);"></i>
                 <span>Data Siswa</span>
             </a>
-            <a class="sidebar-item-link" href="/dashboard/data-petugas" style="@if(Request::is('dashboard/data-petugas')) border-bottom:2px solid white;background-color:#222; @endif">
-                <i class="fa-solid fa-lock" style="color:rgb(219, 0, 0);"></i>
+            <a class="sidebar-item-link" href="/dashboard/data-petugas" style="@if(Request::is('dashboard/data-petugas')) background-color: #eee; border-left:4px solid rgb(0, 173, 189); @endif">
+                <i class="fa-solid fa-user-gear" style="color:rgb(219, 0, 0);"></i>
                 <span>Data Petugas</span>
             </a>
-            <a class="sidebar-item-link" href="/dashboard/data-kelas" style="@if(Request::is('dashboard/data-kelas')) border-bottom:2px solid white;background-color:#222; @endif">
+            <a class="sidebar-item-link" href="/dashboard/data-kelas" style="@if(Request::is('dashboard/data-kelas')) background-color: #eee; border-left:4px solid rgb(0, 173, 189); @endif">
                 <i class="fa-solid fa-school" style="color:rgb(0, 145, 255)"></i>
                 <span>Data Kelas</span>
             </a>
-            <a class="sidebar-item-link" href="/dashboard/data-spp" style="@if(Request::is('dashboard/data-spp')) border-bottom:2px solid white;background-color:#222; @endif">
-                <i class="fa-solid fa-tags" style="color:orange;"></i>
+            <a class="sidebar-item-link" href="/dashboard/data-spp" style="@if(Request::is('dashboard/data-spp')) background-color: #eee; border-left:4px solid rgb(0, 173, 189); @endif">
+                <i class="fa-solid fa-file-invoice-dollar" style="color:orange;"></i>
                 <span>Data SPP</span>
             </a>
             @endif
-            <a class="sidebar-item-link" href="/dashboard/entry-pembayaran-spp" @if(Request::is('dashboard/data-spssp')) style="border-bottom:2px solid white;background-color:#222;" @endif>
-                <i class="fa-solid fa-coins" style="color:gold;"></i>
+            <a class="sidebar-item-link" href="/dashboard/entry-pembayaran-spp" @if(Request::is('dashboard/entry-pembayaran-spp')) style="background-color: #eee; border-left:4px solid rgb(0, 173, 189);" @endif>
+                <i class="fa-solid fa-money-bills" style="color:rgb(96, 240, 0);"></i>
                 <span>Entry Pembayaran</span>
             </a>
-            <a class="sidebar-item-link" href="" @if(Request::is('dashboard/data-spssp')) style="border-bottom:2px solid white;background-color:#222;" @endif>
-                <i class="fa-solid fa-file-lines" style="color:white;"></i>
+            <a class="sidebar-item-link" href="" @if(Request::is('dashboard/history-pembayaran-spp')) style="background-color: #eee; border-left:4px solid rgb(0, 173, 189);" @endif>
+                <i class="fa-solid fa-file-lines" style="color:#555;"></i>
                 <span>Riwayat Pembayaran</span>
             </a>
         </div>

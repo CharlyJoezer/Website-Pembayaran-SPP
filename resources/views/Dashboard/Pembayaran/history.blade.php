@@ -48,7 +48,10 @@
         </div>
     </div>
     <div class="wrapper-list-history-pembayaran">
-        <div style="font-weight: 600;margin-bottom:15px;border-bottom: 2px solid #aaa;padding-bottom:5px;"><i class="fa-solid fa-list"></i> List Riwayat Pembayaran</div>
+        <div style="font-weight: 600;margin-bottom:15px;border-bottom: 2px solid #aaa;padding-bottom: 10px;">
+            <i class="fa-solid fa-list"></i> 
+            <span>List Riwayat Pembayaran</span>
+        </div>
         @foreach ($history as $item)
         <div class="box-history-pembayaran">
             <div class="left">
