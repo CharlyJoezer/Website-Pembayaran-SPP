@@ -88,7 +88,7 @@ if (input.files && input.files[0]) {
 // FITUR SEARCH
 $('#button-search').click(function(){
 const getSearch = $('#input-search').val()
-if(getSearch == ''){
+if(getSearch.trim() === ""){
     $('.wrapper-popup').toggleClass('display')
     window.location = "/dashboard/data-siswa";
     return false;

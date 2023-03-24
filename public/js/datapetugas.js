@@ -60,7 +60,7 @@ $('.popup-delete-data').click(function(event){
 // FITUR SEARCH
 $('#button-search').click(function(){
     const getSearch = $('#input-search').val()
-    if(getSearch == ''){
+    if(getSearch.trim() === ""){
         $('.wrapper-popup').toggleClass('display')
         window.location = "/dashboard/data-petugas";
         return false;

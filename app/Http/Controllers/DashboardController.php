@@ -21,6 +21,8 @@ class DashboardController extends Controller
             'title' => 'Beranda | Dashboard'
         ]);
     }
+
+    // CONTROLLER SISWA
     public function viewDataSiswa(){
         return view('dashboard.datasiswa.index',[
             'title' => 'Data Siswa | Dashboard',
@@ -155,7 +157,7 @@ class DashboardController extends Controller
         try{
             $data = User::with(['kelas' => function($query){
                     $query->select('id_kelas','nama_kelas', 'kompetensi_keahlian');
-                    }])->where('nisn', 'like', $val.'%')->orWhere('nama','like',$val.'%')->paginate(10,['nisn','nis','nama','id_kelas','alamat','no_telp','foto']);
+                    },'spp'])->where('nisn', 'like', $val.'%')->orWhere('nama','like',$val.'%')->paginate(10,['nisn','nis','nama','id_kelas','id_spp','alamat','no_telp','foto']);
         }catch(Exception){
             return abort(500);
         }
@@ -177,7 +179,6 @@ class DashboardController extends Controller
 
 
     // CONTROLLER PETUGAS
-
     public function detailDataPetugas($id){
         if(!is_numeric($id)){
             return abort(404);
@@ -221,7 +222,6 @@ class DashboardController extends Controller
 
         return back();
     }
-
     public function editDataPetugas(Request $request, $id){
         $request->validate([
             'username' => 'required',
@@ -245,7 +245,6 @@ class DashboardController extends Controller
 
         return back();
     }
-
     public function deleteDataPetugas($id){
         if(!is_numeric($id)){
             return abort(404);
@@ -264,7 +263,6 @@ class DashboardController extends Controller
         }
 
     }
-
     public function searchDataPetugas($val){
         try{
             $data = Petugas::where('username', 'like', $val.'%')->orWhere('nama_petugas','like',$val.'%')->paginate(10);
@@ -286,7 +284,6 @@ class DashboardController extends Controller
             'data' => Kelas::orderBy('nama_kelas', 'asc')->paginate(10)
         ]);
     }
-
     public function detailDataKelas($id){
         if(!is_numeric($id)){
             return abort(404);
@@ -308,7 +305,6 @@ class DashboardController extends Controller
             'no' => 1
         ]);
     }
-
     public function createDataKelas(Request $request){
         $request->validate([
             'kelas' => 'required',
@@ -328,7 +324,6 @@ class DashboardController extends Controller
 
         return back();
     }
-
     public function editDataKelas(Request $request, $id){
         $request->validate([
             'kelas' => 'required',
@@ -349,7 +344,6 @@ class DashboardController extends Controller
 
         return back();
     }
-
     public function deleteDataKelas($id){
         if(!is_numeric($id)){
             return abort(404);
@@ -367,7 +361,6 @@ class DashboardController extends Controller
             return abort(500);
         }
     }
-
     public function searchDataKelas($val){
         try{
             $data = Kelas::where('kompetensi_keahlian', 'like', $val.'%')->orWhere('nama_kelas','like',$val.'%')->orderBy('nama_kelas', 'asc')->paginate(10);
@@ -390,7 +383,6 @@ class DashboardController extends Controller
             'data' => Spp::orderBy('tahun', 'desc')->paginate(10)
         ]);
     }
-    
     public function createDataSpp(Request $request){
         $request->validate([
             'tahun' => 'required|numeric',
@@ -410,7 +402,6 @@ class DashboardController extends Controller
 
         return back();
     }
-
     public function editDataSpp(Request $request, $id){
         $request->validate([
             'tahun' => 'required|numeric',
@@ -431,7 +422,6 @@ class DashboardController extends Controller
 
         return back();
     }
-
     public function deleteDataSpp($id){
         if(!is_numeric($id)){
             return abort(404);
@@ -449,7 +439,6 @@ class DashboardController extends Controller
             return abort(500);
         }
     }
-
     public function searchDataSpp($val){
         try{
             $data = Spp::where('tahun', 'like', $val.'%')->orderBy('tahun', 'desc')->paginate(10);
@@ -463,23 +452,27 @@ class DashboardController extends Controller
         return $getView;
     }
 
+
         // ENTRY PEMBAYARAN SPP
     public function viewEntryPembayaranSpp(){
+        // $data = User::with(['spp', 'pembayaran'])->get();
+        // return $data;
         return view('dashboard.pembayaran.index',[
             'title' => 'Entry Pembayaran SPP | Dashboard',
             'css' => 'entry_pembayaran',
             'data' => User::with(['spp', 'pembayaran'])->get(),
             'spp' => Spp::all(),
             'getSum' => function($array){
-                $total = 0;
-                foreach($array as $num){
-                    $total += $num['jumlah_bayar'];
-                }
-                return $total;
-            }
+                            $total = 0;
+                            foreach($array['pembayaran'] as $num){
+                                if($array['id_spp'] == $num['id_spp']){
+                                    $total += $num['jumlah_bayar'];
+                                }
+                            }
+                            return $total;
+                        }
          ]);
     }
-
     public function createEntryPembayaranSpp(Request $request){
         $request->validate([
             'nisn' => 'required|numeric',
@@ -488,6 +481,10 @@ class DashboardController extends Controller
             'tanggal' => 'required',
             'jumlah' => 'required|numeric',
         ]);
+        $checkNISN = User::where('nisn', $request->nisn)->first();
+        if($checkNISN == null){
+            return back()->with('fail', 'Gagal membuat data, NISN Siswa tidak ditemukan!');
+        }
         try{
             $getSpp = Spp::where('id_spp', $request->tahun_spp)->first();
             if($getSpp == null){
@@ -510,7 +507,6 @@ class DashboardController extends Controller
             return abort(500);
         }
     }
-
     public function viewHistoryPembayaran($nisn){
         if(!is_numeric($nisn)){
             return abort(404);
@@ -527,7 +523,6 @@ class DashboardController extends Controller
             'siswa' => $getSiswa
         ]);
     }
-
     public function searchEntryPembayaranSpp($val){
         try{
             $data = User::with([
@@ -541,19 +536,20 @@ class DashboardController extends Controller
                     $getView = view('dashboard.pembayaran.search', [
                         'data' => $data,
                         'getSum' => function($array){
-                            $total = 0;
-                            foreach($array as $num){
-                                $total += $num['jumlah_bayar'];
-                            }
-                            return $total;
-                        }
+                                        $total = 0;
+                                        foreach($array['pembayaran'] as $num){
+                                            if($array['id_spp'] == $num['id_spp']){
+                                                $total += $num['jumlah_bayar'];
+                                            }
+                                        }
+                                        return $total;
+                                    }
                     ]);
                     return $getView;
         }catch(Exception){
             return abort(500);
         }
     }
-
     public function deleteHistoryPembayaran($id){
         if(!is_numeric($id)){
             return abort(404);
@@ -565,4 +561,8 @@ class DashboardController extends Controller
         }
         return back();
     }
+
+
+
+
 }

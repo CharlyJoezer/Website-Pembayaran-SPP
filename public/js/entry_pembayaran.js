@@ -21,7 +21,7 @@ $('.wrapper-popup, .close-form, .cancel-form').click(function(event){
 // FITUR SEARCH
 $('#button-search').click(function(){
     const getSearch = $('#input-search').val()
-    if(getSearch == ''){
+    if(getSearch.trim() === ""){
         $('.wrapper-popup').toggleClass('display')
         window.location = "/dashboard/entry-pembayaran-spp";
         return false;
