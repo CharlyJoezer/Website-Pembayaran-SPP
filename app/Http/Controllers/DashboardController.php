@@ -25,8 +25,9 @@ class DashboardController extends Controller
         return view('dashboard.datasiswa.index',[
             'title' => 'Data Siswa | Dashboard',
             'css' => 'datasiswa',
-            'data' => User::with('kelas')->orderBy('created_at','desc')->get(['nisn','nis','nama','alamat','no_telp','foto', 'id_kelas']),
-            'kelas' => Kelas::all(['id_kelas','nama_kelas', 'kompetensi_keahlian'])
+            'data' => User::with(['kelas','spp'])->orderBy('created_at','desc')->get(['nisn','nis','nama','alamat','no_telp','foto', 'id_kelas','id_spp']),
+            'kelas' => Kelas::all(['id_kelas','nama_kelas', 'kompetensi_keahlian']),
+            'spp' => Spp::all(['id_spp', 'tahun', 'nominal'])
         ]);
     }
 
@@ -36,6 +37,7 @@ class DashboardController extends Controller
             'nis' => 'required|numeric',
             'nama' => 'required|string',
             'kelas' => 'required|string',
+            'spp' => 'required|numeric',
             'telp' => 'required|numeric',
             'alamat' => 'required|string',
             'image' => 'required'
@@ -45,15 +47,19 @@ class DashboardController extends Controller
             'nis' => $request->nis,
             'nama' => $request->nama,
             'id_kelas' => $request->kelas, 
-            'id_spp' => 1,
+            'id_spp' => $request->spp,
             'no_telp' => $request->telp,
             'alamat' => $request->alamat,
             'foto' => null
         ];
         try{
-            $checkAlreadyData = User::where('nisn', $dataEntry['nisn'])->first();
-            if($checkAlreadyData != null){
+            $checkAlreadyUser = User::where('nisn', $dataEntry['nisn'])->first();
+            $checkSpp = Spp::where('id_spp', $dataEntry['id_spp'])->first();
+            if($checkAlreadyUser != null){
                 return back()->with('fail', 'NISN dengan nomor '.$dataEntry['nisn'].' sudah terdaftar!');
+            }
+            if($checkSpp == null){
+                return abort(500);
             }
             if($request->file('image')){
                 $image = $request->file('image');
@@ -94,6 +100,7 @@ class DashboardController extends Controller
                 'nis' => 'required|numeric',
                 'nama' => 'required|string',
                 'kelas' => 'required|string',
+                'spp' => 'required|numeric',
                 'telp' => 'required|numeric',
                 'alamat' => 'required|string',
             ]);
@@ -102,6 +109,7 @@ class DashboardController extends Controller
                 'nis' => $request->nis,
                 'nama' => $request->nama,
                 'id_kelas' => $request->kelas,
+                'id_spp' => $request->spp,
                 'no_telp' => $request->telp,
                 'alamat' => $request->alamat,
             ];

@@ -24,7 +24,7 @@
             </div>
         </div>
         <div class="button-search-data">
-            <input id="input-search" type="text" placeholder="Cari Data....">
+            <input id="input-search" type="text" placeholder="Cari Data...">
             <span id="button-search"><i class="fa-solid fa-magnifying-glass"></i></span>
         </div>
     </div>

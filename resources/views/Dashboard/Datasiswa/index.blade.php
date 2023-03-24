@@ -103,6 +103,21 @@
                             </td>
                         </tr>
                         <tr class="box-input">
+                            <td>Tahun SPP</td>
+                            <td>:</td>
+                            <td>
+                                <select required name="spp" style="@error('spp') border-color:red; @enderror">
+                                    <option value="" selected style="color:#ccc;">Pilih Tahun SPP</option>
+                                    @foreach ($spp as $item)
+                                    <option id="spp{{ $item->id_spp }}" value="{{ $item->id_spp }}" {{ old('spp') == $item->id_spp ? 'selected' : '' }}>{{ $item->tahun.' - Rp. '.number_format($item->nominal,0,'.','.') }}</option>
+                                    @endforeach
+                                </select>
+                                @error('spp')
+                                    <div style="font-size:10px;color:red;font-style:italic;">{{ $message }}</div>
+                                @enderror
+                            </td>
+                        </tr>
+                        <tr class="box-input">
                             <td>Kelas</td>
                             <td>:</td>
                             <td>

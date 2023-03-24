@@ -40,6 +40,7 @@ $(document).on('click','.button-edit',function(){
     $('#input-nisn').val(getDataJson['nisn'])
     $('#input-nama').val(getDataJson['nama'])
     $('#input-telepon').val(getDataJson['no_telp'])
+    $(`#spp${getDataJson['id_spp']}`).prop('selected', true) // akan dirubah
     $('#input-alamat').val(getDataJson['alamat'])
     $(`#kelas${getDataJson['id_kelas']}`).prop('selected', true) // akan dirubah
 });
