@@ -27,7 +27,7 @@ class DashboardController extends Controller
         return view('dashboard.datasiswa.index',[
             'title' => 'Data Siswa | Dashboard',
             'css' => 'datasiswa',
-            'data' => User::with(['kelas','spp'])->orderBy('created_at','desc')->get(['nisn','nis','nama','alamat','no_telp','foto', 'id_kelas','id_spp']),
+            'data' => User::with(['kelas','spp'])->orderBy('created_at','desc')->paginate(5,['nisn','nis','nama','alamat','no_telp','foto', 'id_kelas','id_spp']),
             'kelas' => Kelas::all(['id_kelas','nama_kelas', 'kompetensi_keahlian']),
             'spp' => Spp::all(['id_spp', 'tahun', 'nominal'])
         ]);
@@ -168,17 +168,14 @@ class DashboardController extends Controller
         return $getView;
     }
 
+    // CONTROLLER PETUGAS
     public function viewDataPetugas(){
         return view('dashboard.datapetugas.index',[
             'title' => 'Data Petugas | Dashboard',
             'css' => 'datapetugas',
-            'data' => Petugas::all()
+            'data' => Petugas::paginate(5)
         ]);
     }
-
-
-
-    // CONTROLLER PETUGAS
     public function detailDataPetugas($id){
         if(!is_numeric($id)){
             return abort(404);
@@ -281,7 +278,7 @@ class DashboardController extends Controller
         return view('dashboard.datakelas.index',[
             'title' => 'Data Kelas | Dashboard',
             'css' => 'datakelas',
-            'data' => Kelas::orderBy('nama_kelas', 'asc')->paginate(10)
+            'data' => Kelas::orderBy('nama_kelas', 'asc')->paginate(5)
         ]);
     }
     public function detailDataKelas($id){
@@ -454,13 +451,11 @@ class DashboardController extends Controller
 
 
         // ENTRY PEMBAYARAN SPP
-    public function viewEntryPembayaranSpp(){
-        // $data = User::with(['spp', 'pembayaran'])->get();
-        // return $data;
+public function viewEntryPembayaranSpp(){
         return view('dashboard.pembayaran.index',[
             'title' => 'Entry Pembayaran SPP | Dashboard',
             'css' => 'entry_pembayaran',
-            'data' => User::with(['spp', 'pembayaran'])->get(),
+            'data' => User::with(['spp', 'pembayaran'])->paginate(5),
             'spp' => Spp::all(),
             'getSum' => function($array){
                             $total = 0;

@@ -62,6 +62,8 @@
         </table>
     </div>
 
+
+
     <div class="wrapper-popup">
         <div class="popup-add-data" attr-mode="">
             <form action="data-siswa/create" class="form-input-data-siswa" enctype="multipart/form-data" method="POST">
@@ -193,6 +195,29 @@
     </div>
 </div>
 
+<div class="pagination">
+    <div class="wrapper-button-pagination">
+        <a class="previous-page"
+        @if ($data->previousPageUrl() == null)
+        style="color:#ccc;cursor:no-drop;"
+        @else
+        href="{{ $data->previousPageUrl() }}"
+        @endif>&#10094;</a>
+
+        <div class="page-now">{{ $data->currentPage() }}</div>
+
+        <a class="next-page"
+        @if ($data->nextPageUrl() == null)
+        style="color:#ccc;cursor:no-drop;"
+        @else
+        href="{{ $data->nextPageUrl() }}"
+        @endif>&#10095;</a>
+    </div>
+    <div class="info-pagination" style="text-align:center;font-size:12px;">
+        <div>Halaman {{ $data->currentPage() }} dari {{ $data->lastPage() }} </div>
+        <div style="font-size:11px;color:#888;">Total data : {{ $data->total() }}</div>
+    </div>
+</div>
 
 <script src="/js/datasiswa.js"></script>
 
