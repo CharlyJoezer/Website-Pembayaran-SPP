@@ -27,6 +27,7 @@ h1,h2,h3,h4,h5,h6 {
     display: flex;
     align-items: center;
     padding: 7px;
+    border-bottom: 1px solid #ccc;
 }
 .navbar-header img{
     width: 40px;
@@ -223,10 +224,12 @@ h1,h2,h3,h4,h5,h6 {
     border-radius: 5px;
 }
 .table-biodat-auth{
-    border-top: 1px solid #ccc;
     font-size: 14px;
-    width: 100%;
+    width: 30%;
     padding-top: 10px;
+}
+.table-biodat-auth tr td:nth-child(3){
+    padding-left: 28px;
 }
 .dashboad-logout{
     padding: 8px 12px;
@@ -247,9 +250,8 @@ h1,h2,h3,h4,h5,h6 {
     padding: 15px 20px;
     box-sizing: border-box;
     margin-top: 10px;
-    margin-bottom: 10px;
     margin-right: 10px;
-    box-shadow: 0 0 5px #ccc;
+    box-shadow: 0 0 3px #aaa;
     border-radius: 5px;
     color:white;
 

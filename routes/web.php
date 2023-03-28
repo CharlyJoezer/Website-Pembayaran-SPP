@@ -2,10 +2,15 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SppController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\KelasController;
+use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\PetugasController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PembayaranController;
 
-/*
+    /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
@@ -28,47 +33,57 @@ Route::middleware('auth:siswa,petugas')->group(function(){
     Route::GET('/logout', [AuthController::class, 'logout']);
     Route::GET('/', [DashboardController::class, 'dashboard']);
 });
+
+
 Route::middleware('auth:petugas')->group(function(){
-    Route::GET('/dashboard/data-siswa', [DashboardController::class, 'viewDataSiswa']);
-    Route::POST('/dashboard/data-siswa/create', [DashboardController::class, 'createDataSiswa']);
-    Route::GET('/dashboard/data-siswa/detail/{nisn}', [DashboardController::class, 'detailDataSiswa']);
-    Route::POST('/dashboard/data-siswa/edit/{nisn}', [DashboardController::class, 'editDataSiswa']);
-    Route::GET('/dashboard/data-siswa/delete/{nisn}', [DashboardController::class, 'deleteDataSiswa']);
-    Route::GET('/dashboard/data-siswa/feature/search/{value}', [DashboardController::class, 'searchDataSiswa']);
+    
+    // SISWA
+    Route::controller(SiswaController::class)->group(function(){
+        Route::GET('/dashboard/data-siswa', 'viewDataSiswa');
+        Route::POST('/dashboard/data-siswa/create', 'createDataSiswa');
+        Route::GET('/dashboard/data-siswa/detail/{nisn}', 'detailDataSiswa');
+        Route::POST('/dashboard/data-siswa/edit/{nisn}', 'editDataSiswa');
+        Route::GET('/dashboard/data-siswa/delete/{nisn}', 'deleteDataSiswa');
+        Route::GET('/dashboard/data-siswa/feature/search/{value}', 'searchDataSiswa');
+    });
 
     // PETUGAS
-    Route::GET('/dashboard/data-petugas', [DashboardController::class, 'viewDataPetugas']);
-    Route::POST('/dashboard/data-petugas/create', [DashboardController::class, 'createDataPetugas']);
-    Route::GET('/dashboard/data-petugas/detail/{id}', [DashboardController::class, 'detailDataPetugas']);
-    Route::POST('/dashboard/data-petugas/edit/{id}', [DashboardController::class, 'editDataPetugas']);
-    Route::GET('/dashboard/data-petugas/delete/{id}', [DashboardController::class, 'deleteDataPetugas']);
-    Route::GET('/dashboard/data-petugas/feature/search/{value}', [DashboardController::class, 'searchDataPetugas']);
+    Route::controller(PetugasController::class)->group(function(){
+        Route::GET('/dashboard/data-petugas', 'viewDataPetugas');
+        Route::POST('/dashboard/data-petugas/create', 'createDataPetugas');
+        Route::GET('/dashboard/data-petugas/detail/{id}', 'detailDataPetugas');
+        Route::POST('/dashboard/data-petugas/edit/{id}', 'editDataPetugas');
+        Route::GET('/dashboard/data-petugas/delete/{id}', 'deleteDataPetugas');
+        Route::GET('/dashboard/data-petugas/feature/search/{value}', 'searchDataPetugas');
+    });
 
-    // ROUTE DATA KELAS
-    Route::GET('/dashboard/data-kelas', [DashboardController::class, 'viewDataKelas']);
-    Route::POST('/dashboard/data-kelas/create', [DashboardController::class, 'createDataKelas']);
-    Route::GET('/dashboard/data-kelas/detail/{id}', [DashboardController::class, 'detailDataKelas']);
-    Route::POST('/dashboard/data-kelas/edit/{id}', [DashboardController::class, 'editDataKelas']);
-    Route::GET('/dashboard/data-kelas/delete/{id}', [DashboardController::class, 'deleteDataKelas']);
-    Route::GET('/dashboard/data-kelas/feature/search/{value}', [DashboardController::class, 'searchDataKelas']);
+    // KELAS
+    Route::controller(KelasController::class)->group(function(){
+        Route::GET('/dashboard/data-kelas', 'viewDataKelas');
+        Route::POST('/dashboard/data-kelas/create', 'createDataKelas');
+        Route::GET('/dashboard/data-kelas/detail/{id}', 'detailDataKelas');
+        Route::POST('/dashboard/data-kelas/edit/{id}', 'editDataKelas');
+        Route::GET('/dashboard/data-kelas/delete/{id}', 'deleteDataKelas');
+        Route::GET('/dashboard/data-kelas/feature/search/{value}', 'searchDataKelas');
+    });
 
-    // ROUTE DATA SPP
-    Route::GET('/dashboard/data-spp', [DashboardController::class, 'viewDataSpp']);
-    Route::POST('/dashboard/data-spp/create', [DashboardController::class, 'createDataSpp']);
-    Route::POST('/dashboard/data-spp/edit/{id}', [DashboardController::class, 'editDataSpp']);
-    Route::GET('/dashboard/data-spp/delete/{id}', [DashboardController::class, 'deleteDataSpp']);
-    Route::GET('/dashboard/data-spp/feature/search/{value}', [DashboardController::class, 'searchDataSpp']);
+    // SPP
+    Route::controller(SppController::class)->group(function(){
+        Route::GET('/dashboard/data-spp', 'viewDataSpp');
+        Route::POST('/dashboard/data-spp/create', 'createDataSpp');
+        Route::POST('/dashboard/data-spp/edit/{id}', 'editDataSpp');
+        Route::GET('/dashboard/data-spp/delete/{id}', 'deleteDataSpp');
+        Route::GET('/dashboard/data-spp/feature/search/{value}', 'searchDataSpp');
+    });
 
-
-    // ENTRY PEMBAYARAN SPP
-    Route::GET('/dashboard/entry-pembayaran-spp', [DashboardController::class, 'viewEntryPembayaranSpp']);
-    Route::POST('/dashboard/entry-pembayaran-spp/create', [DashboardController::class, 'createEntryPembayaranSpp']);
-    Route::GET('/dashboard/data-entry-pembayaran/fetch/month/{nisn}', [DashboardController::class, 'getMonthPembayaranSpp']);
-    Route::GET('/dashboard/data-entry-pembayaran-spp/feature/search/{val}', [DashboardController::class, 'searchEntryPembayaranSpp']);
-    
-    // HISTORY PEMBAYARAN UNTUK PETUGAS
-    Route::GET('/dashboard/entry-pembayaran-spp/history/{nisn}', [DashboardController::class, 'viewHistoryPembayaran']);
-    Route::GET('/dashboard/data-history-pembayaran/delete/{id}', [DashboardController::class, 'deleteHistoryPembayaran']);
-    
+    // PEMBAYARAN SPP
+    Route::controller(PembayaranController::class)->group(function(){
+        Route::GET('/dashboard/entry-pembayaran-spp', 'viewEntryPembayaranSpp');
+        Route::POST('/dashboard/entry-pembayaran-spp/create', 'createEntryPembayaranSpp');
+        Route::GET('/dashboard/data-entry-pembayaran/fetch/month/{nisn}', 'getMonthPembayaranSpp');
+        Route::GET('/dashboard/data-entry-pembayaran-spp/feature/search/{val}', 'searchEntryPembayaranSpp');
+        Route::GET('/dashboard/entry-pembayaran-spp/history/{nisn}', 'viewHistoryPembayaran');
+        Route::GET('/dashboard/data-history-pembayaran/delete/{id}', 'deleteHistoryPembayaran');
+    });
 
 });
