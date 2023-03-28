@@ -4,16 +4,12 @@
     <td>{{ $item->nama }}</td>
     <td>{{ $item->kelas->nama_kelas.'-'.$item->kelas->kompetensi_keahlian }}</td>
     <td>{{ $item->spp->tahun }}</td>
-    <td>{{ number_format($item->spp->nominal,0,'.','.') }}</td>
-    <td style="@if($item->spp->nominal - $getSum($item) > 0) color:red;@else color:green; @endif">
-        Rp. {{  number_format($item->spp->nominal - $getSum($item),0,'.','.') }}
-    </td>
-    <td>Rp. {{ number_format($getSum($item),0,'.','.') }}</td>
+    <td>Rp. {{ number_format($item->spp->nominal,0,'.','.') }}</td>
     <td>
-        @if($getSum($item) == $item->spp->nominal)
-        <span style="font-weight:600;color:green;">Lunas</span>
+        @if (isset($item->pembayaran[0]))
+        <span style="font-weight:bold;">{{ $item->pembayaran[0]['bulan_dibayar'] }}</span>
         @else
-        <span style="font-weight:600;color:red;">Belum Lunas</span>
+        <span>Belum ada Pembayaran</span>
         @endif
     </td>
     <td>

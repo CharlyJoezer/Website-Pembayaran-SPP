@@ -451,20 +451,23 @@ class DashboardController extends Controller
 
 
         // ENTRY PEMBAYARAN SPP
-public function viewEntryPembayaranSpp(){
+    public function viewEntryPembayaranSpp(){
         return view('dashboard.pembayaran.index',[
             'title' => 'Entry Pembayaran SPP | Dashboard',
             'css' => 'entry_pembayaran',
-            'data' => User::with(['spp', 'pembayaran'])->paginate(5),
+            'data' => User::with([
+                'spp',
+                'pembayaran',
+                'kelas'])->paginate(5),
             'spp' => Spp::all(),
-            'getSum' => function($array){
-                            $total = 0;
+            'getMonth' => function($array){
+                            $data = [];
                             foreach($array['pembayaran'] as $num){
                                 if($array['id_spp'] == $num['id_spp']){
-                                    $total += $num['jumlah_bayar'];
+                                    array_push($data, $num['bulan_dibayar']);
                                 }
                             }
-                            return $total;
+                            return end($data);
                         }
          ]);
     }
@@ -472,10 +475,36 @@ public function viewEntryPembayaranSpp(){
         $request->validate([
             'nisn' => 'required|numeric',
             'tahun_spp' => 'required|numeric',
-            'bulan_spp' => 'required',
             'tanggal' => 'required',
             'jumlah' => 'required|numeric',
         ]);
+
+        $allMonth = [
+            'Januari',
+            'Februari',
+            'Maret',
+            'April',
+            'Mei',
+            'Juni',
+            'Juli',
+            'Agustus',
+            'September',
+            'Oktober',
+            'November',
+            'Desember'
+        ];
+        $inputMonth = [];
+        for($i = 0; $i < 12; $i++){
+            $getMon = (String)$request->input($allMonth[$i]);
+            if($getMon != null){
+                array_push($inputMonth, $allMonth[$i]);
+            }
+        }
+        if(count($inputMonth) <= 0){
+            return back()->with('fail', 'Terjadi Kesalahan Input, Coba lagi!');
+        }
+
+
         $checkNISN = User::where('nisn', $request->nisn)->first();
         if($checkNISN == null){
             return back()->with('fail', 'Gagal membuat data, NISN Siswa tidak ditemukan!');
@@ -485,17 +514,24 @@ public function viewEntryPembayaranSpp(){
             if($getSpp == null){
                 return abort(404);
             }
-            $finaldata = [
-                'nisn' => $request->nisn,
-                'tahun_dibayar' => $request->tahun_spp,
-                'bulan_dibayar' => $request->bulan_spp,
-                'tgl_dibayar' => $request->tanggal,
-                'jumlah_bayar' => $request->jumlah,
-                'id_petugas' => Auth::guard('petugas')->user()->id_petugas,
-                'id_spp' => $getSpp['id_spp']
-            ];
 
-            Pembayaran::create($finaldata);
+
+            $finaldata = [];
+            for($i = 0; $i < count($inputMonth); $i++){
+                $createSingleDataArray = [
+                    'nisn' => $request->nisn,
+                    'tahun_dibayar' => $request->tahun_spp,
+                    'bulan_dibayar' => $inputMonth[$i],
+                    'tgl_dibayar' => $request->tanggal,
+                    'jumlah_bayar' => $request->jumlah,
+                    'id_petugas' => Auth::guard('petugas')->user()->id_petugas,
+                    'id_spp' => $getSpp['id_spp']
+                ];
+                array_push($finaldata, $createSingleDataArray);
+            }
+
+
+            Pembayaran::insert($finaldata);
             return back();
             
         }catch(Exception){
@@ -555,6 +591,49 @@ public function viewEntryPembayaranSpp(){
             return abort(500);
         }
         return back();
+    }
+    public function getMonthPembayaranSpp($nisn){
+        if(auth()->guard('petugas')->user()->level == 'admin' || auth()->guard('petugas')->user()->level == 'petugas'){
+
+            $allMonth = [
+                'Januari' => '1',
+                'Februari' => '2',
+                'Maret' => '3',
+                'April' => '4',
+                'Mei' => '5',
+                'Juni' => '6',
+                'Juli' => '7',
+                'Agustus' => '8',
+                'September' => '9',
+                'Oktober' => '10',
+                'November' => '11',
+                'Desember' => '12',
+            ];
+    
+    
+            $getSiswa = User::where('nisn', $nisn)->first();
+            if(!isset($getSiswa['nisn'])){
+                return response()->json(['status' => 'false','message' => 'NISN tidak ditemukan!']);
+            }
+            $getPembayaran = Pembayaran::where([
+                ['nisn', $nisn],
+                ['id_spp', $getSiswa['id_spp']]
+            ])->get();
+    
+            if($getPembayaran == null){
+                return response()->json(['status' => 'true', 'monthx`' => $allMonth]);
+            }
+    
+    
+            foreach($getPembayaran as $mon){
+                if(isset($allMonth[$mon['bulan_dibayar']])){
+                    unset($allMonth[$mon['bulan_dibayar']]);
+                }
+            }
+            return response()->json(['status' => 'true','month' => $allMonth]);
+        }else{
+            return response()->json(['status' => 'False','message' => 'Forbidden'], 403);
+        }
     }
 
 

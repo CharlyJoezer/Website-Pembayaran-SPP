@@ -141,10 +141,9 @@
     transform: translateY(-110%);
     display: flex;
     flex-direction: column;
-    height: fit-content;
+    min-height: fit-content;
     max-height: 100%;
-    overflow: hidden;
-    padding-bottom: 70px;
+    padding-bottom: 105px;
     box-shadow: 0 0 5px #aaa;
     opacity: 0;
 }
@@ -221,6 +220,7 @@
 }
 .form-input-data-eps {
     min-height: 100%;
+    overflow: auto;
 }
 .table-form{
     max-height: 100%;
@@ -228,6 +228,7 @@
 }
 .form-input-data-eps table{
     width: 100%;
+    overflow: auto;
 }
 .form-input-data-eps table tr td:nth-child(1){
     font-size: 14px;

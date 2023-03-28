@@ -39,9 +39,7 @@
                 <th>Kelas</th>
                 <th>SPP Tahun</th>
                 <th>Nominal</th>
-                <th>Sisa Pembayaran</th>
-                <th>Telah dibayar</th>
-                <th>Status</th>
+                <th>Pembayaran Terakhir</th>
                 <th>Action</th>
             </thead>
             <tbody id="data-table">
@@ -51,16 +49,12 @@
                     <td>{{ $item->nama }}</td>
                     <td>{{ $item->kelas->nama_kelas.'-'.$item->kelas->kompetensi_keahlian }}</td>
                     <td>{{ $item->spp->tahun }}</td>
-                    <td>{{ number_format($item->spp->nominal,0,'.','.') }}</td>
-                    <td style="@if($item->spp->nominal - $getSum($item) > 0) color:red;@else color:green; @endif">
-                        Rp. {{  number_format($item->spp->nominal - $getSum($item),0,'.','.') }}
-                    </td>
-                    <td>Rp. {{ number_format($getSum($item),0,'.','.') }}</td>
+                    <td>Rp. {{ number_format($item->spp->nominal,0,'.','.') }}</td>
                     <td>
-                        @if($getSum($item) == $item->spp->nominal)
-                        <span style="font-weight:600;color:green;">Lunas</span>
+                        @if ( $getMonth($item) != null )
+                        <span style="font-weight:bold;">{{ $getMonth($item) }}</span>
                         @else
-                        <span style="font-weight:600;color:red;">Belum Lunas</span>
+                        <span>Belum ada Pembayaran</span>
                         @endif
                     </td>
                     <td>
@@ -75,12 +69,12 @@
     
     <div class="wrapper-popup">
         <div class="popup-add-data" attr-mode="">
+            <div class="add-data-header">
+                <span><i class="fa-solid fa-people-group"></i> <span id="text-header-popup">Entry Pembayaran SPP</span></span>
+                <span class="close-form">&#9587;</span>
+            </div>
             <form action="entry-pembayaran-spp/create" class="form-input-data-eps" method="POST">
                 @csrf
-                <div class="add-data-header">
-                    <span><i class="fa-solid fa-people-group"></i> <span id="text-header-popup">Entry Pembayaran SPP</span></span>
-                    <span class="close-form">&#9587;</span>
-                </div>
                 <div class="table-form">
                     <table>
                         <tr class="box-input">
@@ -88,6 +82,7 @@
                             <td>:</td>
                             <td>
                                 <input id="input-nisn" required placeholder="NISN" name="nisn" type="number" style="@error('nisn') border-color:red; @enderror" value="{{ old('nisn') }}">
+                                <div style="font-size:10px;color:red;" id="info-nisn"></div>
                                 @error('nisn')
                                     <div style="font-size:10px;color:red;font-style:italic;">{{ $message }}</div>
                                 @enderror
@@ -111,22 +106,11 @@
                         <tr class="box-input">
                             <td>Bulan dibayar</td>
                             <td>:</td>
-                            <td>
-                                <select required name="bulan_spp" id="" style="@error('bulan_spp') border-color:red; @enderror">
-                                    <option value="" disabled selected>Pilih Bulan</option>
-                                    <option value="Januari">Januari</option>
-                                    <option value="Februari">Februari</option>
-                                    <option value="Maret">Maret</option>
-                                    <option value="April">April</option>
-                                    <option value="Mei">Mei</option>
-                                    <option value="Juni">Juni</option>
-                                    <option value="Juli">Juli</option>
-                                    <option value="Agustus">Agustus</option>
-                                    <option value="September">September</option>
-                                    <option value="Oktober">Oktober</option>
-                                    <option value="November">November</option>
-                                    <option value="Desember">Desember</option>
-                                </select>
+                            <td style="vertical-align: middle;">
+                                <div class="wrapper-bulan" style="display:flex;flex-wrap:wrap;flex-direction:column;">
+                                </div>
+
+                                <div style="font-size:10px;" id="info-select-bulan">*Masukkan NISN lebih dahulu</div>
                                 @error('bulan_spp')
                                     <div style="font-size:10px;color:red;font-style:italic;">{{ $message }}</div>
                                 @enderror
@@ -156,7 +140,7 @@
                 </div>
                 <div class="button-form">
                     <button class="cancel-form">Batalkan</button>
-                    <button class="save-form" type="submit">Simpan</button>
+                    <button class="save-form" style="background-color:#999;color:white;cursor:no-drop;" disabled>Simpan</button>
                 </div>
             </form>
         </div>
@@ -167,7 +151,7 @@
     <div class="wrapper-button-pagination">
         <a class="previous-page"
         @if ($data->previousPageUrl() == null)
-        style="color:#ccc;cursor:no-drop;"
+        style="color:ccc;cursor:no-drop;"
         @else
         href="{{ $data->previousPageUrl() }}"
         @endif>&#10094;</a>
@@ -188,4 +172,80 @@
 </div>
 
 <script src="/js/entry_pembayaran.js"></script>
+<script>
+    $('#input-nisn').focus(function(){
+        $('#input-nisn').off('keyup')
+        
+        $('#input-nisn').keyup(function(){
+            $('#input-nisn').off('blur')
+            
+            $('#input-nisn').blur(function(){
+                $('#input-nisn').off('blur')
+                const getValue = $('#input-nisn').val()
+                if(/^\d+$/.test(getValue) == false){
+                    $('#info-nisn').html('Input wajib berisi angka!')
+                    return false;
+                }
+                $('.save-form').attr('type','submit')
+                $('.save-form').removeAttr('disabled')
+                $('.save-form').css({
+                    'background-color' :' rgb(0, 219, 73)',
+                    'cursor':'pointer',
+                    'color': 'white'
+                })
+                $('.wrapper-bulan').html(``)
+                fetch(`/dashboard/data-entry-pembayaran/fetch/month/${getValue}`)
+                .then(response => response.json())
+                .then(data => {
+                    if(data.status == 'true'){
+                        $('#info-nisn').html('')
+                        const allMonth = [
+                            'Januari',
+                            'Februari',
+                            'Maret',
+                            'April',
+                            'Mei',
+                            'Juni',
+                            'Juli',
+                            'Agustus',
+                            'September',
+                            'Oktober',
+                            'November',
+                            'Desember'
+                        ];
+                        for(i = 0; i < 12; i++){
+                            if(data.month[allMonth[i]] != undefined){
+                                $('.wrapper-bulan').append(`
+                                    <div style="display:flex;align-items:center;border:1px solid #aaa; padding:5px;width:fit-content;margin-bottom:3px;margin-right:4px;border-radius:3px;">
+                                        <input type="checkbox" value="`+allMonth[i]+`" name="`+allMonth[i]+`" style="width:12px;margin:0px;margin-right:5px;">
+                                        <div style="font-size:12px;">`+allMonth[i]+`</div>
+                                    </div>
+                                `)
+                            }
+                        }
+                    }
+                    else if(data.status == 'false'){
+                        $('#info-nisn').html(data.message)
+                        $('.save-form').attr('disabled', 'disabled')
+                        $('.save-form').css({
+                            'background-color' :'#999',
+                            'cursor':'no-drop',
+                            'color': 'white'
+                        })
+                    }
+                })
+                .catch(error => {
+                    return false;
+                })
+            })
+
+
+        })
+    })
+
+
+
+
+    
+</script>
 @endsection

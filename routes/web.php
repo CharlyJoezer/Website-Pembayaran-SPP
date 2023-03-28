@@ -63,10 +63,12 @@ Route::middleware('auth:petugas')->group(function(){
     // ENTRY PEMBAYARAN SPP
     Route::GET('/dashboard/entry-pembayaran-spp', [DashboardController::class, 'viewEntryPembayaranSpp']);
     Route::POST('/dashboard/entry-pembayaran-spp/create', [DashboardController::class, 'createEntryPembayaranSpp']);
+    Route::GET('/dashboard/data-entry-pembayaran/fetch/month/{nisn}', [DashboardController::class, 'getMonthPembayaranSpp']);
     Route::GET('/dashboard/data-entry-pembayaran-spp/feature/search/{val}', [DashboardController::class, 'searchEntryPembayaranSpp']);
     
     // HISTORY PEMBAYARAN UNTUK PETUGAS
     Route::GET('/dashboard/entry-pembayaran-spp/history/{nisn}', [DashboardController::class, 'viewHistoryPembayaran']);
     Route::GET('/dashboard/data-history-pembayaran/delete/{id}', [DashboardController::class, 'deleteHistoryPembayaran']);
     
+
 });
