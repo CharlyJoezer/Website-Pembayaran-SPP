@@ -138,4 +138,9 @@
 </div>
 
 <script src="/js/datakelas.js"></script>
+
+@if($errors->any())
+    <script>$('#add-data').trigger('click')</script>
+@endif
+
 @endsection

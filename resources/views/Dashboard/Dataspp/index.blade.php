@@ -142,4 +142,9 @@
 </div>
 
 <script src="/js/dataspp.js"></script>
+
+@if($errors->any())
+<script>$('#add-data').trigger('click')</script>
+@endif
+
 @endsection
