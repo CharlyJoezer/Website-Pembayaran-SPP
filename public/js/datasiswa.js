@@ -65,24 +65,6 @@ $('.popup-delete-data').click(function(event){
 
 
 
-// PREVIEW INPUT IMAGE
-$(document).ready(function(){
-$("#input-image").change(function(){
-        readURL(this);
-    });
-});
-
-function readURL(input) {
-if (input.files && input.files[0]) {
-    var reader = new FileReader();
-    reader.onload = function (e) {
-        $('#preview-image').css('display','block')
-        $('#preview-image')
-            .attr('src', e.target.result);
-    };
-    reader.readAsDataURL(input.files[0]);
-}
-}
 
 
 // FITUR SEARCH

@@ -15,7 +15,7 @@ class User extends Authenticatable
     {
         return 'nisn';
     }
-    protected $fillable = ['nisn','nis','id_kelas','id_spp','nama','alamat','no_telp', 'password', 'foto'];
+    protected $fillable = ['nisn','nis','id_kelas','id_spp','nama','alamat','no_telp', 'password'];
 
     protected $hidden = [
         'password',

@@ -153,19 +153,6 @@
                                 @enderror
                             </td>
                         </tr>
-                        <tr class="box-input">
-                            <td>Foto Siswa</td>
-                            <td>:</td>
-                            <td class="box-input-file">
-                                <img id="preview-image" src="" alt="" width="50%" height="200" style="display:none;margin-bottom: 5px;object-fit:cover;">
-                                <input id="input-image" required type="file" accept="image/*" name="image" style="@error('image') border-color:red; @enderror">
-                                <small style="font-size:12px;color:grey;display:none;"><i>*kosongkan jika tidak mengubah gambar</i></small>
-                                @error('image')
-                                    <div style="font-size:10px;color:red;font-style:italic;">{{ $message }}</div>
-                                @enderror
-
-                            </td>
-                        </tr>
                     </table>
                 </div>
                 <div class="button-form">

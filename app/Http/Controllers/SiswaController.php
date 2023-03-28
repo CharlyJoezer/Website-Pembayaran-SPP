@@ -33,8 +33,7 @@ class SiswaController extends Controller
             'kelas' => 'required|string',
             'spp' => 'required|numeric',
             'telp' => 'required|numeric',
-            'alamat' => 'required|string',
-            'image' => 'required'
+            'alamat' => 'required|string'
         ]);
         $dataEntry = [
             'nisn' => $request->nisn,
@@ -43,8 +42,7 @@ class SiswaController extends Controller
             'id_kelas' => $request->kelas, 
             'id_spp' => $request->spp,
             'no_telp' => $request->telp,
-            'alamat' => $request->alamat,
-            'foto' => null
+            'alamat' => $request->alamat
         ];
         try{
             $checkAlreadyUser = User::where('nisn', $dataEntry['nisn'])->first();
@@ -55,14 +53,7 @@ class SiswaController extends Controller
             if($checkSpp == null){
                 return abort(500);
             }
-            if($request->file('image')){
-                $image = $request->file('image');
-                $imageName = Str::random(40).now().'.'.$image->getClientOriginalExtension();
-                $hashImageName = str_replace([' ', ':', '-'],'',$imageName);
-                $imagepath = $image->storeAs('image', $hashImageName ,'public');
-                $dataEntry['foto'] = $hashImageName;
-            }
-    
+
             $dataEntry['password'] = $request->nis.$request->nisn;
             User::create($dataEntry);
             return back()->with('success', '1 Data telah ditambahkan');
@@ -76,7 +67,6 @@ class SiswaController extends Controller
         if(Auth::guard('petugas')->check()){
             $checkDataRequest = User::where('nisn', $id)->first();
             if($checkDataRequest != null){
-                Storage::disk('public')->delete('image/'.$checkDataRequest->foto);
                 User::where('nisn', $id)->delete();
                 Pembayaran::where('nisn', $id)->delete();
                 return back()->with('success', '1 Data Siswa telah dihapus');
@@ -108,15 +98,6 @@ class SiswaController extends Controller
                 'no_telp' => $request->telp,
                 'alamat' => $request->alamat,
             ];
-            if($request->file('image')){
-                $getImage = User::where('nisn', $id)->first('foto');
-                Storage::disk('public')->delete('image/'.$getImage->foto);
-                $image = $request->file('image');
-                $imageName = Str::random(40).now().'.'.$image->getClientOriginalExtension();
-                $hashImageName = str_replace([' ', ':', '-'],'',$imageName);
-                $imagepath = $image->storeAs('image', $hashImageName ,'public');
-                $dataEntry['foto'] = $hashImageName;
-            }
             User::where('nisn', $id)->update($dataEntry);
             return back()->with('success', 'Data NISN '.$dataEntry['nisn'].' berhasil diubah!');
         }else{
