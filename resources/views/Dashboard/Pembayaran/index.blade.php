@@ -14,10 +14,6 @@
     
     <div class="feature">
         <div style="display:flex;">
-            <div class="button-filter-data" id="filter-data">
-                <i class="fa-solid fa-filter"></i>
-                <span>Filter Data</span>
-            </div>
             <div class="button-add-data" id="add-data">
                 <i class="fa-solid fa-square-plus"></i>
                 <span>Tambah Pembayaran</span>
