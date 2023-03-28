@@ -3,9 +3,12 @@
 
 <div class="wrapper-all">
     <div class="header" style="padding:5px 1px;">
-        <div style="font-size:16px;font-weight:500;color:#555;display:flex;align-items:flex-end;">
-            <i class="fa-solid fa-school" style="color:rgb(0, 173, 189);font-size:20px;"></i>
-            <span style="font-size:17px;padding-left: 5px;">Data Kelas</span>
+        <div style="font-size:18px;font-weight:500;color:#555;display:flex;align-items:center;">
+            <i class="fa-solid fa-school" style="color:rgb(0, 173, 189);font-size:28px;"></i>
+            <div style="font-size:17px;padding-left: 5px;">
+                <div>Data Kelas</div>
+                <div style="font-size:10px;">Smk Airlangga Balikpapan</div>
+            </div>
         </div>
     </div>
     <div style="background-color:rgb(0, 173, 189) ;height:3px;margin:5px 0px;border-radius:3px;"></div>
