@@ -18,7 +18,11 @@ class DashboardController extends Controller
 {
     public function dashboard(){
         return view('beranda',[
-            'title' => 'Beranda | Dashboard'
+            'title' => 'Beranda | Dashboard',
+            'siswa' => count(User::all()),
+            'kelas' => count(Kelas::all()),
+            'spp' => count(Spp::all()),
+            'pembayaran' => count(Pembayaran::all())
         ]);
     }
 
