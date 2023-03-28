@@ -33,7 +33,7 @@ class SppController extends Controller
             die();
         }
 
-        return back();
+        return back()->with('success', '1 Data Spp telah ditambahkan');
     }
     public function editDataSpp(Request $request, $id){
         $request->validate([
@@ -53,7 +53,7 @@ class SppController extends Controller
             die();
         }
 
-        return back();
+        return back()->with('success', '1 Data Spp telah diubah');
     }
     public function deleteDataSpp($id){
         if(!is_numeric($id)){
@@ -66,7 +66,7 @@ class SppController extends Controller
             }
             else{
                 Spp::where('id_spp', $id)->delete();
-                return back();
+                return back()->with('success', '1 Data Spp telah dihapus');
             }
         }catch(Exception){
             return abort(500);

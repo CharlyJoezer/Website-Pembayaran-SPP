@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id('id_pembayaran');
             $table->foreignId('id_petugas');
             $table->foreignId('id_spp');
+            $table->foreignId('id_kelas');
             $table->integer('jumlah_bayar');    
             $table->string('nisn');
             $table->date('tgl_dibayar');

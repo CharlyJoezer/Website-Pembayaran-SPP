@@ -14,7 +14,7 @@
         <div style="font-size:20px;font-weight:600;color:#333;">Selamat Datang di Website Pembayaran SPP </div>
         <div style="font-size:14px;margin-bottom:10px;">Smk Airlangga Balikpapan</div>
         <div class="card-user-login">
-            <div class="navbar-header">
+            <div class="navbar-header" style="border-bottom: 1px solid #ccc;">
                 <img src="/asset/logo-sekolah.png" alt="">
                 <div class="text-header">
                     <h4>SMK Airlangga Balikpapan</h4>

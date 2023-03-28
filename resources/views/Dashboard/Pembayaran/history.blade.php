@@ -13,7 +13,7 @@
 <div class="wrapper-data-siswa-and-history">
     <div class="detail-wrapper-data-siswa">
         <div class="detail-data-siswa-left">
-            <img src="/storage/image/{{ $siswa->foto }}" alt="">
+            <img style="box-shadow:0 0 5px #aaa;border-radius:5px;" src="https://images.all-free-download.com/images/graphicwebp/student_graduation_background_boy_education_design_elements_icons_6837816.webp" alt="">
         </div>
         <div class="detail-data-siswa-right">
             <div class="biodata-siswa">

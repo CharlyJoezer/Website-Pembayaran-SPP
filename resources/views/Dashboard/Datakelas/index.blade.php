@@ -102,7 +102,7 @@
                 <span class="close-delete">&#9587;</span>
             </div>
             <div class="content-popup-delete">
-                Anda yakin akan menghapus kelas ini ?
+                <div><b>Data Siswa</b> di Kelas ini akan ikut <span style="color:red;">terhapus</span> juga, Anda yakin akan menghapus Kelas ini ?</div>
             </div>
             <div class="button-confirm-delete">
                 <a id="confirm-delete-button">Hapus</a>

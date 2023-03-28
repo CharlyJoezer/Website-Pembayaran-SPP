@@ -98,11 +98,27 @@
 
     </div>
 
+
+    {{-- POPUP IF FAIL --}}
+    <div class="notif" style="@if(session()->has('fail')) background-color:red;  @endif display:flex;align-items:center;">
+        @if (session()->has('success'))
+            <div><i class="fa-solid fa-circle-check" style="font-size:20px;margin-right:10px;"></i></div>
+            <div>{{ session('success') }}</div>
+        @else
+            <div><i class="fa-solid fa-triangle-exclamation" style="font-size:20px;margin-right:10px;"></i></div>
+            <div>{{ session('fail') }}</div>
+        @endif
+    </div>
+
+    
     <div class="content">
         @yield('content')
         {{-- <div class="copyright">Copyright &#169; Smk Airlangga Balikpapan 2023</div> --}}
     </div>
-
+    
     <script src="/js/dashboard.js"></script>
+    @if (session()->has('fail') || session()->has('success'))
+        <script>showNotif()</script>
+    @endif
 </body>
 </html>

@@ -41,7 +41,7 @@
                 <tr>
                     <td>{{ $item->username }}</td>
                     <td>{{ $item->nama_petugas }}</td>
-                    <td>{{ $item->level }}</td>
+                    <td style="text-transform: capitalize;">{{ $item->level }}</td>
                     <td>
                         <div class="wrapper-action">
                             <a href="/dashboard/data-petugas/detail/{{ $item->id_petugas }}">
@@ -105,8 +105,8 @@
                             <td>
                                 <select required name="level" style="@error('level') border-color:red; @enderror">
                                     <option value="" selected disabled style="color:#ccc;">Pilih Level</option>
-                                    <option id="level-petugas" value="petugas">Petugas</option>
-                                    <option id="level-admin" value="admin">Admin</option>
+                                    <option id="level-petugas" value="Petugas">Petugas</option>
+                                    <option id="level-admin" value="Admin">Admin</option>
                                 </select>
                                 @error('level')
                                     <div style="font-size:10px;color:red;font-style:italic;">{{ $message }}</div>

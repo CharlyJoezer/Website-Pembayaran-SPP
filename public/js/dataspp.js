@@ -31,6 +31,7 @@ $(document).on('click','.button-edit',function(){
     $('.form-input-data-spp').attr('action', `data-spp/edit/${getDataJson['id_spp']}`)
     $('#input-tahun').val(getDataJson['tahun'])
     $('#input-nominal').val(getDataJson['nominal'])
+    $('#input-nominal-hidden').val(getDataJson['nominal'])
     $(document).on('keydown', function(event){
         if (event.keyCode === 13) {
             $('.save-form').trigger('click')
@@ -108,5 +109,4 @@ $('#input-nominal').on('keyup', function(event){
             }
         }
     }
-
 })

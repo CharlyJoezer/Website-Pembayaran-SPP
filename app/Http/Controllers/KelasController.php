@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Exception;
+use App\Models\User;
 use App\Models\Kelas;
+use App\Models\Pembayaran;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class KelasController extends Controller
 {
@@ -54,7 +57,7 @@ class KelasController extends Controller
             die();
         }
 
-        return back();
+        return back()->with('success', '1 Kelas telah ditambahkan');
     }
     public function editDataKelas(Request $request, $id){
         $request->validate([
@@ -74,23 +77,27 @@ class KelasController extends Controller
             die();
         }
 
-        return back();
+        return back()->with('success','1 Data Kelas telah diubah');
     }
     public function deleteDataKelas($id){
         if(!is_numeric($id)){
             return abort(404);
         }
-        try{
-            $getData = Kelas::where('id_kelas', $id)->first();
-            if($getData == null){
-                return abort(404);
+        $getData = Kelas::where('id_kelas', $id)->first();
+        if($getData != null){
+            try{
+                DB::beginTransaction();
+                    User::where('id_kelas', $id)->delete();
+                    Pembayaran::where('id_kelas', $id)->delete();
+                    Kelas::where('id_kelas', $id)->delete();
+                DB::commit();
+                return back()->with('success', '1 Data Kelas telah dihapus');
+            }catch(Exception){
+                DB::rollback();
+                return back()->with('fail', 'Terjadi Kesalahan Input, Coba lagi!');
             }
-            else{
-                Kelas::where('id_kelas', $id)->delete();
-                return back();
-            }
-        }catch(Exception){
-            return abort(500);
+        }else{
+            return abort(404);
         }
     }
     public function searchDataKelas($val){

@@ -6,6 +6,7 @@ use Exception;
 use App\Models\Spp;
 use App\Models\User;
 use App\Models\Kelas;
+use App\Models\Pembayaran;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -64,7 +65,7 @@ class SiswaController extends Controller
     
             $dataEntry['password'] = $request->nis.$request->nisn;
             User::create($dataEntry);
-            return back();
+            return back()->with('success', '1 Data telah ditambahkan');
         }catch(Exception){
             return abort(500);
         }
@@ -77,7 +78,8 @@ class SiswaController extends Controller
             if($checkDataRequest != null){
                 Storage::disk('public')->delete('image/'.$checkDataRequest->foto);
                 User::where('nisn', $id)->delete();
-                return back();
+                Pembayaran::where('nisn', $id)->delete();
+                return back()->with('success', '1 Data Siswa telah dihapus');
             }else{
                 return back()->with('fail', 'Data tidak ditemukan!');
             }

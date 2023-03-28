@@ -7,6 +7,7 @@ use App\Models\Spp;
 use App\Models\User;
 use App\Models\Pembayaran;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class PembayaranController extends Controller
@@ -68,16 +69,15 @@ class PembayaranController extends Controller
 
         $checkNISN = User::where('nisn', $request->nisn)->first();
         if($checkNISN == null){
-            return back()->with('fail', 'Gagal membuat data, NISN Siswa tidak ditemukan!');
+            return back()->with('fail', 'NISN Siswa tidak ditemukan!');
         }
-        try{
-            $getSpp = Spp::where('id_spp', $request->tahun_spp)->first();
-            if($getSpp == null){
-                return abort(404);
-            }
-
-
-            $finaldata = [];
+        $getSpp = Spp::where('id_spp', $request->tahun_spp)->first();
+        if($getSpp == null){
+            return abort(404);
+        }
+        
+        
+        $finaldata = [];
             for($i = 0; $i < count($inputMonth); $i++){
                 $createSingleDataArray = [
                     'nisn' => $request->nisn,
@@ -86,17 +86,20 @@ class PembayaranController extends Controller
                     'tgl_dibayar' => $request->tanggal,
                     'jumlah_bayar' => $request->jumlah,
                     'id_petugas' => Auth::guard('petugas')->user()->id_petugas,
-                    'id_spp' => $getSpp['id_spp']
+                    'id_spp' => $getSpp['id_spp'],
+                    'id_kelas' => $checkNISN['id_kelas']
                 ];
                 array_push($finaldata, $createSingleDataArray);
             }
-
-
-            Pembayaran::insert($finaldata);
-            return back();
             
+            DB::beginTransaction();
+        try{
+            Pembayaran::insert($finaldata);
+            DB::commit(); // Data akan diinput jika query tidak terjadi error
+            return back()->with('success',  count($inputMonth).' Data Pembayaran telah ditambahkan');
         }catch(Exception){
-            return abort(500);
+            DB::rollback();
+            return back()->with('fail', 'Terjadi Kesalahan Input, Coba lagi!');
         }
     }
     public function viewHistoryPembayaran($nisn){
@@ -151,7 +154,7 @@ class PembayaranController extends Controller
         }catch(Exception){
             return abort(500);
         }
-        return back();
+        return back()->with('fail', '1 Data Pembayaran telah dihapus');
     }
     public function getMonthPembayaranSpp($nisn){
         if(auth()->guard('petugas')->user()->level == 'admin' || auth()->guard('petugas')->user()->level == 'petugas'){

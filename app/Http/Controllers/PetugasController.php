@@ -42,8 +42,8 @@ class PetugasController extends Controller
                 'level' => 'required',
                 'password' => 'required|min:8',
             ]);
-            if($request->level != 'admin' && $request->level != 'petugas'){
-                return abort(404);
+            if($request->level != 'Admin' && $request->level != 'Petugas'){
+                return abort(403);
             }
             $finalData = [
                 'username' => $request->username,
@@ -58,7 +58,7 @@ class PetugasController extends Controller
                 die();
             }
     
-            return back();
+            return back()->with('success', '1 '.$finalData['level'].' telah ditambahkan');
         }
         public function editDataPetugas(Request $request, $id){
             $request->validate([
@@ -66,7 +66,7 @@ class PetugasController extends Controller
                 'nama' => 'required',
                 'level' => 'required',
             ]);
-            if($request->level != 'admin' && $request->level != 'petugas'){
+            if($request->level != 'Admin' && $request->level != 'Petugas'){
                 return abort(404);
             }
             $finalData = [
@@ -81,7 +81,7 @@ class PetugasController extends Controller
                 die();
             }
     
-            return back();
+            return back()->with('success', '1 Data telah diubah');
         }
         public function deleteDataPetugas($id){
             if(!is_numeric($id)){
@@ -94,7 +94,7 @@ class PetugasController extends Controller
                 }
                 else{
                     Petugas::where('id_petugas', $id)->delete();
-                    return back();
+                    return back()->with('success', '1 Data '.$getData['level'].' telah dihapus');
                 }
             }catch(Exception){
                 return abort(500);

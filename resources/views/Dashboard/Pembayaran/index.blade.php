@@ -129,7 +129,8 @@
                             <td>Jumlah dibayar</td>
                             <td>:</td>
                             <td>
-                                <input id="input-jumlah-dibayar" required type="text" placeholder="Jumlah dibayar" name="jumlah" style="@error('jumlah') border-color:red; @enderror" value="{{ old('jumlah') }}">
+                                <input id="input-jumlah-dibayar" required type="text" placeholder="Jumlah dibayar"  style="@error('jumlah') border-color:red; @enderror" value="{{ old('jumlah') }}">
+                                <input id="input-jumlah-dibayar-hidden" required type="hidden" placeholder="Jumlah dibayar" name="jumlah" style="@error('jumlah') border-color:red; @enderror" value="{{ old('jumlah') }}">
                                 @error('jumlah')
                                     <div style="font-size:10px;color:red;font-style:italic;">{{ $message }}</div>
                                 @enderror
@@ -172,82 +173,6 @@
 
 
 <script src="/js/entry_pembayaran.js"></script>
-<script>
-    $('#input-nisn').focus(function(){
-        $('#input-nisn').off('keyup')
-        
-        $('#input-nisn').keyup(function(){
-            $('#input-nisn').off('blur')
-            
-            $('#input-nisn').blur(function(){
-                $('#input-nisn').off('blur')
-                const getValue = $('#input-nisn').val()
-                if(/^\d+$/.test(getValue) == false){
-                    $('#info-nisn').html('Input wajib berisi angka!')
-                    return false;
-                }
-                $('.save-form').attr('type','submit')
-                $('.save-form').removeAttr('disabled')
-                $('.save-form').css({
-                    'background-color' :' rgb(0, 219, 73)',
-                    'cursor':'pointer',
-                    'color': 'white'
-                })
-                $('.wrapper-bulan').html(``)
-                fetch(`/dashboard/data-entry-pembayaran/fetch/month/${getValue}`)
-                .then(response => response.json())
-                .then(data => {
-                    if(data.status == 'true'){
-                        $('#info-nisn').html('')
-                        const allMonth = [
-                            'Januari',
-                            'Februari',
-                            'Maret',
-                            'April',
-                            'Mei',
-                            'Juni',
-                            'Juli',
-                            'Agustus',
-                            'September',
-                            'Oktober',
-                            'November',
-                            'Desember'
-                        ];
-                        for(i = 0; i < 12; i++){
-                            if(data.month[allMonth[i]] != undefined){
-                                $('.wrapper-bulan').append(`
-                                    <div style="display:flex;align-items:center;border:1px solid #aaa; padding:5px;width:fit-content;margin-bottom:3px;margin-right:4px;border-radius:3px;">
-                                        <input type="checkbox" value="`+allMonth[i]+`" name="`+allMonth[i]+`" style="width:12px;margin:0px;margin-right:5px;">
-                                        <div style="font-size:12px;">`+allMonth[i]+`</div>
-                                    </div>
-                                `)
-                            }
-                        }
-                    }
-                    else if(data.status == 'false'){
-                        $('#info-nisn').html(data.message)
-                        $('.save-form').attr('disabled', 'disabled')
-                        $('.save-form').css({
-                            'background-color' :'#999',
-                            'cursor':'no-drop',
-                            'color': 'white'
-                        })
-                    }
-                })
-                .catch(error => {
-                    return false;
-                })
-            })
-
-
-        })
-    })
-
-
-
-
-    
-</script>
 
 @if($errors->any())
     <script>$('#add-data').trigger('click')</script>

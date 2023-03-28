@@ -184,7 +184,7 @@
                 <span class="close-delete">&#9587;</span>
             </div>
             <div class="content-popup-delete">
-                Anda yakin akan menghapus data siswa ini ?
+                <div><b>Riwayat Pembayaran</b> yang dimiliki siswa ini akan ikut <span style="color:red;">terhapus</span> juga, Anda yakin akan menghapus data siswa ini ?</div>
             </div>
             <div class="button-confirm-delete">
                 <a id="confirm-delete-button">Hapus</a>
@@ -217,6 +217,8 @@
         </div>
     </div>
 </div>
+
+
 
 
 <script src="/js/datasiswa.js"></script>
