@@ -18,9 +18,8 @@ class AuthController extends Controller
     }
 
 
-    public function authLogin(Request $request)
-    {   
-        try{
+    public function authLogin(Request $request){
+        // try{
             if($request->as == 'siswa'){
                 $data = $request->validate([
                     'username_siswa' => 'required',
@@ -30,7 +29,7 @@ class AuthController extends Controller
                     $request->session()->regenerate();
                     return redirect('/');
                 }
-                return back()->with('siswa_fail', 'Nama atau Password salah!');
+                return back()->with('fail', 'Nama atau Password salah!');
             }elseif($request->as == 'petugas'){
                 $data = $request->validate([
                     'username_petugas' => 'required',
@@ -40,13 +39,13 @@ class AuthController extends Controller
                     $request->session()->regenerate();
                     return redirect('/');
                 }
-                return back()->with('petugas_fail', 'Username atau Password salah!');
+                return back()->with('fail', 'Username atau Password salah!');
             }else{
                 return back();
             }
-        }catch(Exception){
-            return abort(500);
-        }
+        // }catch(Exception){
+        //     return abort(500);
+        // }
 
     }
 

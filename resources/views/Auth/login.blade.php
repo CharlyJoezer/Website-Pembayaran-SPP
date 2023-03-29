@@ -18,65 +18,21 @@
 
     <div class="containers">
         <div class="box-login">
-            <div class="login-header">
-                <img src="/asset/logo-sekolah.png" width="50" alt="">
+            <div class="login-header" style="padding-bottom: 12px;margin-bottom: 15px;border-bottom:1px solid #ccc;">
+                <img src="/asset/logo-sekolah.png" alt="">
                 <div class="login-header-text">
-                    <div>Smk Airlangga Balikpapan</div>
-                    <hr style="margin: 3px 0px;">
-                    <div>Pembayaran SPP Online</div>
+                    <div>SMK Airlangga Balikpapan</div>
+                    <div style="font-size:12px;padding-top:4px;padding-left:1px;">Pembayaran SPP Online SMK Airlangga Balikpapan</div>
                 </div>
             </div>
-            <div style="color:white;text-align:center;padding:10px;border-bottom:1px solid #ccc;margin-bottom:10px;">Masuk sebagai</div>
-            <div class="d-flex justify-content-evenly text-white">
-                <div class="opsi-login btn-siswa btn btn-success @if(session()->has('siswa_fail')) lowbright @endif" id="btn-siswa">Siswa</div>
-                <div class="opsi-login btn-petugas btn btn-primary @if(session()->has('petugas_fail')) lowbright @endif" id="btn-petugas">Petugas</div>
-            </div>
+
+            @if(session()->has('fail'))
+            <div style="color:red;padding:5px;text-align:center;">{{ session('fail') }}</div>
+            @endif
+            
+
             <div class="login-form">
                 <form action="/login/auth" class="form-login" method="post">
-                    @if (session()->has('siswa_fail'))
-                    <form action="/login/auth" class="form-login" method="post">
-                        @csrf
-                        <div style="color:red;padding:5px;text-align:center;">{{ session('siswa_fail') }}</div>
-                        <div class="form-floating mb-3">
-                            <input type="text" required name="username_siswa" class="form-control" id="siswa" placeholder="name@example.com">
-                            <label for="siswa">Nama Siswa</label>
-                        </div>
-                        <div class="form-floating">
-                            <input type="password" required name="password_siswa" class="form-control" id="nis" placeholder="Password">
-                            <label for="nis">Password</label>
-                            <div style="color:white;font-style:italic;font-size:12px;">*password diisi dengan nis + nisn siswa</div>
-                        </div>
-                        <input type="hidden" name="as" value="siswa">
-                        <button class="btn btn-primary mt-3 w-100">Masuk</button>
-                    </form>
-                    @elseif(session()->has('petugas_fail'))
-                    <form action="/login/auth" class="form-login" method="post">
-                        @csrf
-                        <div style="color:red;padding:5px;text-align:center;">{{ session('petugas_fail') }}</div>
-                        <div class="form-floating mb-3">
-                            <input type="text" required name="username_petugas" class="form-control" id="username" placeholder="username">
-                                <label for="username">Username</label>
-                        </div>
-                        <div class="form-floating">
-                            <input type="password" required name="password_petugas" class="form-control" id="password" placeholder="Password">
-                            <label for="password">Password</label>
-                        </div>
-                        <input type="hidden" name="as" value="petugas">
-                        <button class="btn btn-primary mt-3 w-100">Masuk</button>
-                    </form>
-                    @endif
-                </form>
-            </div>
-        </div>
-    </div>
-    
-    <script>
-        const loginForm = $('.login-form')
-        $('#btn-siswa').click(function(){
-            $(this).addClass('lowbright')
-            $('.btn-petugas').removeClass('lowbright')
-            loginForm.html(`
-            <form action="/login/auth" class="form-login" method="post">
                     @csrf
                     <div class="form-floating mb-3">
                         <input type="text" required name="username_siswa" class="form-control" id="siswa" placeholder="name@example.com">
@@ -88,29 +44,58 @@
                         <div style="color:white;font-style:italic;font-size:12px;">*password diisi dengan nis + nisn siswa</div>
                     </div>
                     <input type="hidden" name="as" value="siswa">
-                    <button class="btn btn-primary mt-3 w-100">Masuk</button>
-            </form>
-            `)
+                    <div style="display:flex;">
+                    </div>
+                    <button class="btn btn-primary mt-3 w-100" style="height: 50px;">Masuk Siswa</button>
+                </form>
+            </div>
+            <div style="font-size:14px;color:#ccc;text-align:center;margin-top:5px;">Masuk sebagai, <a class="move" id="btn-change" attr-user="petugas" style="cursor:pointer;color:rgb(57, 202, 255);">Petugas</a></div>
+        </div>
+    </div>
+    
+    <script>
+        const loginForm = $('.login-form')
+        $('#btn-change').click(function(){
+            if($(this).attr('attr-user') == 'petugas'){
+                loginForm.html(`
+                <form action="/login/auth" class="form-login" method="post">
+                    @csrf
+                    <div class="form-floating mb-3">
+                        <input type="text" required name="username_petugas" class="form-control" id="username" placeholder="username">
+                            <label for="username">Username</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="password" required name="password_petugas" class="form-control" id="password" placeholder="Password">
+                        <label for="password">Password</label>
+                    </div>
+                    <input type="hidden" name="as" value="petugas">
+                    <button class="btn btn-primary mt-3 w-100" style="height: 50px;">Masuk Petugas</button>
+                </form>
+                `)
+                $('.move').html(' Siswa')
+                $(this).attr('attr-user', 'siswa')
+            }else{
+                loginForm.html(`
+                <form action="/login/auth" class="form-login" method="post">
+                        @csrf
+                        <div class="form-floating mb-3">
+                            <input type="text" required name="username_siswa" class="form-control" id="siswa" placeholder="name@example.com">
+                            <label for="siswa">Nama Siswa</label>
+                        </div>
+                        <div class="form-floating">
+                            <input type="password" required name="password_siswa" class="form-control" id="nis" placeholder="Password">
+                            <label for="nis">Password</label>
+                            <div style="color:white;font-style:italic;font-size:12px;">*password diisi dengan nis + nisn siswa</div>
+                        </div>
+                        <input type="hidden" name="as" value="siswa">
+                        <button class="btn btn-primary mt-3 w-100" style="height: 50px;">Masuk Siswa</button>
+                </form>
+                `)
+                $('.move').html(' Petugas')
+                $(this).attr('attr-user', 'petugas')
+            }
         })
-        $('#btn-petugas').click(function(){
-            $(this).addClass('lowbright')
-            $('.btn-siswa').removeClass('lowbright')
-            loginForm.html(`
-            <form action="/login/auth" class="form-login" method="post">
-                @csrf
-                <div class="form-floating mb-3">
-                    <input type="text" required name="username_petugas" class="form-control" id="username" placeholder="username">
-                        <label for="username">Username</label>
-                </div>
-                <div class="form-floating">
-                    <input type="password" required name="password_petugas" class="form-control" id="password" placeholder="Password">
-                    <label for="password">Password</label>
-                </div>
-                <input type="hidden" name="as" value="petugas">
-                <button class="btn btn-primary mt-3 w-100">Masuk</button>
-            </form>
-            `)
-        })
+        
     </script>
 </body>
 </html>

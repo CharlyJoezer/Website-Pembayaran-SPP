@@ -1,13 +1,5 @@
 @extends('template.template')
 @section('content')
-{{-- 
-@if(Auth::guard('petugas')->check())
-    <span>Anda Masuk sebagai, <b>Petugas</b></span>
-@elseif(Auth::guard('siswa')->check())
-    <span>Anda Masuk sebagai, <b>Siswa</b></span>
-@endif --}}
-
-
 
 <div class="big-panel">
     <div class="main-text">
@@ -44,7 +36,7 @@
                             @if(Auth::guard('petugas')->check())
                                 <span style="text-transform:capitalize;">{{ Auth::guard('petugas')->user()->level }}</span>
                             @elseif(Auth::guard('siswa')->check())
-                                <span style="text-transform:capitalize;">{{ Auth::guard('siswa')->user()->nama }}</span>
+                                <span style="text-transform:capitalize;">Siswa</span>
                             @endif
                         </td>
                     </tr>

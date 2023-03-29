@@ -31,7 +31,7 @@ Route::middleware('guest')->group(function(){
 });
 Route::middleware('auth:siswa,petugas')->group(function(){
     Route::GET('/logout', [AuthController::class, 'logout']);
-    Route::GET('/', [DashboardController::class, 'dashboard']);
+    Route::GET('/', [DashboardController::class, 'dashboard'])->name('home');
 });
 
 

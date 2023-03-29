@@ -35,7 +35,7 @@
                         <div style="font-size:10px;color:#aaa;">Level : {{ auth()->guard('petugas')->user()->level }}</div>
                     @elseif(Auth::guard('siswa')->check())
                         {{ auth()->guard('siswa')->user()->nama }}
-                        <div style="font-size:10px;color:#aaa;">Siswa</div>
+                        <div style="font-size:10px;color:#aaa;">Status : Siswa</div>
                     @endif
                 </span>
                 <a href="/logout" title="Logout" style="font-size:14px;color:red;"><i class="fa-solid fa-right-from-bracket"></i></a>
@@ -51,13 +51,16 @@
                 <div class="auth-user-biodata" style="padding-left: 8px;">
                     <div style="font-size:14px;font-weight:600;">{{ auth()->guard('petugas')->user()->nama_petugas }}</div>
                     <div style="font-size:10px;color:#555;">
-                        Level : {{ auth()->guard('petugas')->user()->level }}
+                        Status : {{ auth()->guard('petugas')->user()->level }}
                     </div>
                 </div>
-            @elseif(Auth::guard('siswa')->check())
-                <div class="auth-user-biodata">
-                    <div>{{ auth()->guard('siswa')->user()->nama }}</div>
-                    <div style="font-size:10px;color:#aaa;">Siswa</div>
+                @elseif(Auth::guard('siswa')->check())
+                <img src="https://icon-library.com/images/student-icon-png/student-icon-png-15.jpg">
+                <div class="auth-user-biodata" style="padding-left: 8px;">
+                    <div style="font-size:14px;font-weight:600;">{{ auth()->guard('siswa')->user()->nama }}</div>
+                    <div style="font-size:10px;color:#aaa;padding-left:1px;">
+                        Status : Siswa
+                    </div>
                 </div>
             @endif
         </div>
@@ -85,11 +88,11 @@
                 <i class="fa-solid fa-file-invoice-dollar" style="color:orange;"></i>
                 <span>Data SPP</span>
             </a>
-            @endif
             <a class="sidebar-item-link" href="/dashboard/entry-pembayaran-spp" @if(Request::is('dashboard/entry-pembayaran-spp')) style="background-color: #eee; border-left:4px solid rgb(0, 173, 189);" @endif>
                 <i class="fa-solid fa-money-bills" style="color:rgb(96, 240, 0);"></i>
                 <span>Entry Pembayaran</span>
             </a>
+            @endif
             <a class="sidebar-item-link" href="" @if(Request::is('dashboard/history-pembayaran-spp')) style="background-color: #eee; border-left:4px solid rgb(0, 173, 189);" @endif>
                 <i class="fa-solid fa-file-lines" style="color:#555;"></i>
                 <span>Riwayat Pembayaran</span>
