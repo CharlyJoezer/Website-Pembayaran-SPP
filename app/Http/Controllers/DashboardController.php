@@ -17,12 +17,17 @@ use Illuminate\Support\Facades\Storage;
 class DashboardController extends Controller
 {
     public function dashboard(){
+        if(Auth::guard('petugas')->check()){
+            $pembayaran = Pembayaran::all();
+        }else{
+            $pembayaran = Pembayaran::where('nisn', Auth::guard('siswa')->user()->nisn)->get();
+        }
         return view('beranda',[
             'title' => 'Beranda | Dashboard',
             'siswa' => count(User::all()),
             'kelas' => count(Kelas::all()),
             'spp' => count(Spp::all()),
-            'pembayaran' => count(Pembayaran::all())
+            'pembayaran' => count($pembayaran)
         ]);
     }
 

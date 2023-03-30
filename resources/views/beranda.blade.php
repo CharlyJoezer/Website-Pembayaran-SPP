@@ -44,6 +44,7 @@
             </div>
             
             <div class="info-all-data" style="display:flex;flex-wrap:wrap;">
+                @if (Auth::guard('petugas')->check())
                 <div class="box-info-dashboard" style="background-image:linear-gradient(to left top,rgb(0, 187, 255) 5%,rgb(0, 128, 175) 95%);">
                     <div style="font-weight:bold;"><i class="fa-solid fa-user-large"></i> Jumlah Siswa</div>
                     <div style="padding-top:15px;font-size:14px;">{{ $siswa }} Siswa</div>
@@ -60,6 +61,13 @@
                     <div style="font-weight:bold;"><i class="fa-solid fa-money-bills"></i> Data Pembayaran</div>
                     <div style="padding-top:15px;font-size:14px;">{{ $pembayaran }} Pembayaran</div>
                 </div>
+                
+                @else
+                <div class="box-info-dashboard" style="background-image:linear-gradient(to left top,rgb(0, 202, 224) 5%,rgb(0, 157, 175) 95%);">
+                    <div style="font-weight:bold;"><i class="fa-solid fa-money-bills"></i> Riwayat Pembayaran</div>
+                    <div style="padding-top:15px;font-size:14px;">{{ $pembayaran }} Pembayaran</div>
+                </div>
+                @endif
             </div>
         </div>
 
