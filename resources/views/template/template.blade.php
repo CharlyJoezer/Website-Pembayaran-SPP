@@ -93,7 +93,7 @@
                 <span>Entry Pembayaran</span>
             </a>
             @endif
-            <a class="sidebar-item-link" href="" @if(Request::is('dashboard/history-pembayaran-spp')) style="background-color: #eee; border-left:4px solid rgb(0, 173, 189);" @endif>
+            <a class="sidebar-item-link" href="/dashboard/history-pembayaran" @if(Request::is('dashboard/history-pembayaran')) style="background-color: #eee; border-left:4px solid rgb(0, 173, 189);" @endif>
                 <i class="fa-solid fa-file-lines" style="color:#555;"></i>
                 <span>Riwayat Pembayaran</span>
             </a>

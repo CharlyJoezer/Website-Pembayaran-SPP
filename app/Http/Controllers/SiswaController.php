@@ -135,6 +135,7 @@ class SiswaController extends Controller
         }catch(Exception){
             return abort(500);
         }
+
         $getView = view('dashboard.datasiswa.search', [
             'data' => $data
         ]);

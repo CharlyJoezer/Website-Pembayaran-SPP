@@ -8,6 +8,7 @@ use App\Http\Controllers\KelasController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\PetugasController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\PembayaranController;
 
     /*
@@ -32,6 +33,10 @@ Route::middleware('guest')->group(function(){
 Route::middleware('auth:siswa,petugas')->group(function(){
     Route::GET('/logout', [AuthController::class, 'logout']);
     Route::GET('/', [DashboardController::class, 'dashboard'])->name('home');
+
+    Route::controller(HistoryController::class)->group(function(){
+        Route::GET('/dashboard/history-pembayaran', 'viewHistoryPembayaran');
+    });
 });
 
 
@@ -84,6 +89,11 @@ Route::middleware('auth:petugas')->group(function(){
         Route::GET('/dashboard/data-entry-pembayaran-spp/feature/search/{val}', 'searchEntryPembayaranSpp');
         Route::GET('/dashboard/entry-pembayaran-spp/history/{nisn}', 'viewHistoryPembayaran');
         Route::GET('/dashboard/data-history-pembayaran/delete/{id}', 'deleteHistoryPembayaran');
+    });
+
+    
+    Route::controller(HistoryController::class)->group(function(){
+        Route::GET('/dashboard/history-pembayaran/search/{val}', 'getHistoryPembayaran');
     });
 
 });

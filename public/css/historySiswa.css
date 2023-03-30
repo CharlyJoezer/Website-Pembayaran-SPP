@@ -1,0 +1,59 @@
+.wrapper-data-siswa-and-history{
+    background-color: white;
+    padding: 5px 15px;
+    box-shadow: 0 0 5px #ccc;
+}
+.detail-header{
+    background-color: rgb(10, 86, 217);
+    color: white;
+    padding: 12px 15px;
+    font-weight: bold;
+    box-shadow: 0 0 5px #ccc;
+
+}
+.detail-wrapper-data-siswa{
+    border-top: none;
+    display: flex;
+    margin-bottom: 15px;
+}
+.detail-data-siswa-left img{
+    width: 180px;
+    height: 250px;
+    object-fit: cover;
+}
+.detail-data-siswa-right{
+    padding-left: 10px;
+    font-size: 14px;
+}
+.detail-wrapper-data-siswa table tr td{
+    padding-bottom: 15px;
+    padding-right: 10px;
+}
+.detail-wrapper-data-siswa table tr td:nth-child(2){
+    font-weight: bold;
+    padding-right: 20px;
+}
+.detail-wrapper-data-siswa table tr td:nth-child(1){
+    font-weight: bold;
+}
+
+
+/* HISTORY PEMBAYARAN */
+.box-history-pembayaran{
+    padding: 10px 15px;
+    border-top: 4px solid rgb(0, 173, 189);
+    box-shadow: 0 0 5px #ccc;
+    margin-bottom: 10px;
+    background-color: white;
+    border-radius: 3px;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.box-history-pembayaran table tr td:nth-child(2){
+    padding-left: 10px;
+}
+.box-history-pembayaran table tr td:nth-child(3){
+    padding-left: 12px;
+}

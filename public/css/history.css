@@ -1,0 +1,91 @@
+
+.search-siswa {
+    padding-top: 10px;
+    margin-bottom: 18px;
+}
+.search-siswa .text-header{
+    margin-bottom: 10px;
+    font-size: 18px;
+    padding-bottom: 5px;
+    width: fit-content;
+    font-weight: 600;
+    color: #444;
+}
+.input-search-data{
+    display: flex;
+    align-items: center;
+}
+.input-search-data input {
+    outline: none;
+    font-size: 15px;
+    padding: 8px 10px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 1px #ccc;
+    margin-right: 10px;
+    background-color: white;
+    color: #555;
+}
+.input-search-data div{
+    font-size: 13px;
+    padding: 9px 10px;
+    color: white;
+    background-color: rgb(0, 174, 174);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.input-search-data div:hover{
+    background-color: rgb(0, 144, 144);
+}
+.info-key-search{
+    padding-left: 3px;
+}
+.info-key-search small {
+    font-size: 12px;
+}
+.info-key-search ul {
+    font-size: 10px;
+    margin: 0;
+    padding-left: 15px;
+    padding-top: 5px;
+    color: #888;
+}
+
+/* TABLE */
+.wrapper-tabel-data-siswa table{
+    width: 100%;
+    border-collapse: collapse;
+    border-color: #ccc;
+    background-color: white;
+}
+.wrapper-tabel-data-siswa table thead th {
+    padding: 15px;
+    font-size: 14px;
+    background-color: rgb(10, 86, 217);
+    color: white;
+}   
+.wrapper-tabel-data-siswa table tr{
+    transition: 0.2s;
+}
+.wrapper-tabel-data-siswa table tr:hover{
+    background-color: rgba(0, 0, 0, 0.096);
+}
+.wrapper-tabel-data-siswa table tr td {
+    text-align: center;
+    font-size: 13px;
+    padding: 20px 5px;
+}
+.button-history{
+    padding: 8px 10px;
+    border: 1px solid rgb(0, 179, 192);
+    border-radius: 3px;
+    color: rgb(0, 203, 217);
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.2s;
+}
+.button-history:hover{
+    background-color: rgb(0, 179, 192);
+    color: white;
+}
