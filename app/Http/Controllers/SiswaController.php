@@ -21,7 +21,7 @@ class SiswaController extends Controller
             return view('dashboard.datasiswa.index',[
                 'title' => 'Data Siswa | Dashboard',
                 'css' => 'datasiswa',
-                'data' => User::with(['kelas','spp'])->orderBy('created_at','desc')->paginate(5,['nisn','nis','nama','alamat','no_telp','foto', 'id_kelas','id_spp']),
+                'data' => User::with(['kelas','spp'])->orderBy('created_at','desc')->paginate(5,['nisn','nis','nama','alamat','no_telp', 'id_kelas','id_spp']),
                 'kelas' => Kelas::all(['id_kelas','nama_kelas', 'kompetensi_keahlian']),
                 'spp' => Spp::all(['id_spp', 'tahun', 'nominal'])
             ]);

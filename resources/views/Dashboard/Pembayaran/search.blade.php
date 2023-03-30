@@ -18,5 +18,5 @@
         <a target="_blank" href="history-pembayaran/generate-laporan/{{ $item->nisn }}" class="button-generate-laporan"><i class="fa-solid fa-print"></i> Generate Laporan</a>
         @endif
     </td>
-</tr>
+</tr>x`
 @endforeach 

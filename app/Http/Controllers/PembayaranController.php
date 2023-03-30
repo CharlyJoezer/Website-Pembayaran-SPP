@@ -132,14 +132,14 @@ class PembayaranController extends Controller
     }
     public function searchEntryPembayaranSpp($val){
         if(Auth::guard('petugas')->check()){
-            try{
+        try{
                 $data = User::with([
                         'kelas' => function($query){
                         $query->select('id_kelas','nama_kelas', 'kompetensi_keahlian');
                         }, 
                         'spp', 'pembayaran'])->where('nisn', 'like', $val.'%')->orWhere('nama','like',$val.'%')->orWhereHas('kelas', function($query) use ($val){
                             $query->where('kompetensi_keahlian', 'like', '%'.$val);
-                        })->paginate(10,['nisn','nis','nama','id_kelas','id_spp','alamat','no_telp','foto']);
+                        })->paginate(10,['nisn','nis','nama','id_kelas','id_spp','alamat','no_telp']);
                         
                         $getView = view('dashboard.pembayaran.search', [
                             'data' => $data,
