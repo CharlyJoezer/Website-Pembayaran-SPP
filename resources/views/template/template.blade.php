@@ -89,12 +89,11 @@
                         <i class="fa-solid fa-file-invoice-dollar" style="color:orange;"></i>
                         <span>Data SPP</span>
                     </a>
-                    @elseif(Auth::guard('petugas')->user()->level == 'petugas')
+                    @endif
                     <a class="sidebar-item-link" href="/dashboard/entry-pembayaran-spp" @if(Request::is('dashboard/entry-pembayaran-spp')) style="background-color: #eee; border-left:4px solid rgb(0, 173, 189);" @endif>
                         <i class="fa-solid fa-money-bills" style="color:rgb(96, 240, 0);"></i>
                         <span>Entry Pembayaran</span>
                     </a>
-                @endif
             @endif
             <a class="sidebar-item-link" href="/dashboard/history-pembayaran" @if(Request::is('dashboard/history-pembayaran')) style="background-color: #eee; border-left:4px solid rgb(0, 173, 189);" @endif>
                 <i class="fa-solid fa-file-lines" style="color:#555;"></i>
