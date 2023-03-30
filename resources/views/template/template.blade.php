@@ -72,26 +72,29 @@
             @if (Auth::guard('siswa')->check())
                 
             @elseif(Auth::guard('petugas')->check())
-            <a class="sidebar-item-link" href="/dashboard/data-siswa" style="@if(Request::is('dashboard/data-siswa')) background-color: #eee; border-left:4px solid rgb(0, 173, 189); @endif">
-                <i class="fa-solid fa-user-large" style="color:rgb(0, 146, 0);"></i>
-                <span>Data Siswa</span>
-            </a>
-            <a class="sidebar-item-link" href="/dashboard/data-petugas" style="@if(Request::is('dashboard/data-petugas')) background-color: #eee; border-left:4px solid rgb(0, 173, 189); @endif">
-                <i class="fa-solid fa-user-gear" style="color:rgb(219, 0, 0);"></i>
-                <span>Data Petugas</span>
-            </a>
-            <a class="sidebar-item-link" href="/dashboard/data-kelas" style="@if(Request::is('dashboard/data-kelas')) background-color: #eee; border-left:4px solid rgb(0, 173, 189); @endif">
-                <i class="fa-solid fa-school" style="color:rgb(0, 145, 255)"></i>
-                <span>Data Kelas</span>
-            </a>
-            <a class="sidebar-item-link" href="/dashboard/data-spp" style="@if(Request::is('dashboard/data-spp')) background-color: #eee; border-left:4px solid rgb(0, 173, 189); @endif">
-                <i class="fa-solid fa-file-invoice-dollar" style="color:orange;"></i>
-                <span>Data SPP</span>
-            </a>
-            <a class="sidebar-item-link" href="/dashboard/entry-pembayaran-spp" @if(Request::is('dashboard/entry-pembayaran-spp')) style="background-color: #eee; border-left:4px solid rgb(0, 173, 189);" @endif>
-                <i class="fa-solid fa-money-bills" style="color:rgb(96, 240, 0);"></i>
-                <span>Entry Pembayaran</span>
-            </a>
+                @if (Auth::guard('petugas')->user()->level == 'admin')
+                    <a class="sidebar-item-link" href="/dashboard/data-siswa" style="@if(Request::is('dashboard/data-siswa')) background-color: #eee; border-left:4px solid rgb(0, 173, 189); @endif">
+                        <i class="fa-solid fa-user-large" style="color:rgb(0, 146, 0);"></i>
+                        <span>Data Siswa</span>
+                    </a>
+                    <a class="sidebar-item-link" href="/dashboard/data-petugas" style="@if(Request::is('dashboard/data-petugas')) background-color: #eee; border-left:4px solid rgb(0, 173, 189); @endif">
+                        <i class="fa-solid fa-user-gear" style="color:rgb(219, 0, 0);"></i>
+                        <span>Data Petugas</span>
+                    </a>
+                    <a class="sidebar-item-link" href="/dashboard/data-kelas" style="@if(Request::is('dashboard/data-kelas')) background-color: #eee; border-left:4px solid rgb(0, 173, 189); @endif">
+                        <i class="fa-solid fa-school" style="color:rgb(0, 145, 255)"></i>
+                        <span>Data Kelas</span>
+                    </a>
+                    <a class="sidebar-item-link" href="/dashboard/data-spp" style="@if(Request::is('dashboard/data-spp')) background-color: #eee; border-left:4px solid rgb(0, 173, 189); @endif">
+                        <i class="fa-solid fa-file-invoice-dollar" style="color:orange;"></i>
+                        <span>Data SPP</span>
+                    </a>
+                    @elseif(Auth::guard('petugas')->user()->level == 'petugas')
+                    <a class="sidebar-item-link" href="/dashboard/entry-pembayaran-spp" @if(Request::is('dashboard/entry-pembayaran-spp')) style="background-color: #eee; border-left:4px solid rgb(0, 173, 189);" @endif>
+                        <i class="fa-solid fa-money-bills" style="color:rgb(96, 240, 0);"></i>
+                        <span>Entry Pembayaran</span>
+                    </a>
+                @endif
             @endif
             <a class="sidebar-item-link" href="/dashboard/history-pembayaran" @if(Request::is('dashboard/history-pembayaran')) style="background-color: #eee; border-left:4px solid rgb(0, 173, 189);" @endif>
                 <i class="fa-solid fa-file-lines" style="color:#555;"></i>

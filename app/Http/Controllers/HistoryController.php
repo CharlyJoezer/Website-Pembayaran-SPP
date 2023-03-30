@@ -27,21 +27,25 @@ class HistoryController extends Controller
     }
 
     public function getHistoryPembayaran($val){
-        try{
-            $data = User::with(['kelas' => function($query){
-                    $query->select('id_kelas','nama_kelas', 'kompetensi_keahlian');
-                    }])->where('nisn', 'like', $val.'%')->orWhere('nama','like',$val.'%')->orWhere('nis','like',$val.'%')->paginate(10,['nisn','nis','nama','id_kelas','id_spp','alamat','no_telp','foto']);
-                    
-                    if(count($data) <= 0){
-                        return response()->json(['message' => 'Data tidak ditemukan', 'status' => 'false']);
-                    }
-        }catch(Exception){
-            return abort(500);
+        if(Auth::guard('petugas')->check()){
+            try{
+                $data = User::with(['kelas' => function($query){
+                        $query->select('id_kelas','nama_kelas', 'kompetensi_keahlian');
+                        }])->where('nisn', 'like', $val.'%')->orWhere('nama','like',$val.'%')->orWhere('nis','like',$val.'%')->paginate(10,['nisn','nis','nama','id_kelas','id_spp','alamat','no_telp','foto']);
+                        
+                        if(count($data) <= 0){
+                            return response()->json(['message' => 'Data tidak ditemukan', 'status' => 'false']);
+                        }
+            }catch(Exception){
+                return abort(500);
+            }
+            $getView = view('dashboard.history.petugas.search', [
+                'data' => $data
+            ]);
+            return response()->json(['data' => (String)$getView, 'status' => 'true'], 200);
+        }else{
+            return abort(403);
         }
-        $getView = view('dashboard.history.petugas.search', [
-            'data' => $data
-        ]);
-        return response()->json(['data' => (String)$getView, 'status' => 'true'], 200);
     }
 
 }
