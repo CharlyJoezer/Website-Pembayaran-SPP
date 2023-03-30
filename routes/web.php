@@ -6,9 +6,10 @@ use App\Http\Controllers\SppController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PetugasController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\PembayaranController;
 
     /*
@@ -90,10 +91,15 @@ Route::middleware('auth:petugas')->group(function(){
         Route::GET('/dashboard/entry-pembayaran-spp/history/{nisn}', 'viewHistoryPembayaran');
         Route::GET('/dashboard/data-history-pembayaran/delete/{id}', 'deleteHistoryPembayaran');
     });
-
+    
     
     Route::controller(HistoryController::class)->group(function(){
         Route::GET('/dashboard/history-pembayaran/search/{val}', 'getHistoryPembayaran');
     });
 
+    Route::controller(LaporanController::class)->group(function(){
+        Route::GET('/dashboard/history-pembayaran/generate-laporan/{nisn}', 'generateLaporanPembayaran');
+    });
 });
+
+

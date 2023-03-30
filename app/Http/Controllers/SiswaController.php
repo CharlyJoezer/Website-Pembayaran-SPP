@@ -10,6 +10,7 @@ use App\Models\Pembayaran;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class SiswaController extends Controller
@@ -54,7 +55,7 @@ class SiswaController extends Controller
                 return abort(500);
             }
 
-            $dataEntry['password'] = $request->nis.$request->nisn;
+            $dataEntry['password'] = Hash::make($request->nis.$request->nisn);
             User::create($dataEntry);
             return back()->with('success', '1 Data telah ditambahkan');
         }catch(Exception){

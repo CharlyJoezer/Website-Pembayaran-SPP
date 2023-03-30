@@ -56,8 +56,9 @@
                         <span>Belum ada Pembayaran</span>
                         @endif
                     </td>
-                    <td>
-                        <a href="entry-pembayaran-spp/history/{{ $item->nisn }}" class="button-history">History</a>
+                    <td style="display:flex;flex-direction:column;">
+                        <a href="entry-pembayaran-spp/history/{{ $item->nisn }}" class="button-history" style="margin-bottom:8px;"><i class="fa-solid fa-file-lines"></i> Riwayat Pembayaran</a>
+                        <a target="_blank" href="history-pembayaran/generate-laporan/{{ $item->nisn }}" class="button-generate-laporan"><i class="fa-solid fa-print"></i> Generate Laporan</a>
                     </td>
                 </tr>
                 @endforeach
