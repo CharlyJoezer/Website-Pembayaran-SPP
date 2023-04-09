@@ -51,14 +51,21 @@ class AuthController extends Controller
 
 
     public function logout(Request $request){
-        if(auth::guard('petugas')->check()){
+        try{
+            if(auth::guard('petugas')->check()){
+                Auth::guard('petugas')->logout();
+            }
+            Auth::guard('siswa')->logout();
             Auth::guard('petugas')->logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            return redirect('/login');        
+            
+        }catch(Exception){
+            return abort(500, json_encode([
+                'status' => 500,
+                'message' => 'Server Error'
+            ]));
         }
-        Auth::guard('siswa')->logout();
-        Auth::guard('petugas')->logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return redirect('/login');        
     }
 }

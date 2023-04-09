@@ -31,9 +31,9 @@ Route::middleware('guest')->group(function(){
     Route::POST('/login/auth', [AuthController::class, 'authLogin']);
 
 });
+Route::GET('/', [DashboardController::class, 'dashboard'])->name('home');
 Route::middleware('auth:siswa,petugas')->group(function(){
     Route::GET('/logout', [AuthController::class, 'logout']);
-    Route::GET('/', [DashboardController::class, 'dashboard'])->name('home');
 
     Route::controller(HistoryController::class)->group(function(){
         Route::GET('/dashboard/history-pembayaran', 'viewHistoryPembayaran');

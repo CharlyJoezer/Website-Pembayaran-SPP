@@ -2,28 +2,38 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\User;
 use App\Models\Pembayaran;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 class LaporanController extends Controller
 {
     public function generateLaporanPembayaran($nisn){
-        if(Auth::guard('petugas')->check()){
-            if(Auth::guard('petugas')->user()->level == 'admin'){
-                $data = [
-                    'siswa' => User::where('nisn', $nisn)->first(),
-                    'data' => Pembayaran::where('nisn', $nisn)->get() 
-                ];
-                if($data['siswa'] == null || $data['data']){
-                    return abort(404);
+        try{
+            if(Auth::guard('petugas')->check()){
+                if(Auth::guard('petugas')->user()->level == 'admin'){
+                    $data = [
+                        'siswa' => User::where('nisn', $nisn)->first(),
+                        'data' => Pembayaran::where('nisn', $nisn)->get() 
+                    ];
+                    if($data['siswa'] == null || $data['data']){
+                        return abort(404);
+                    }
+                    return view('dashboard.laporan.index',$data);
+                }else{
+                    return abort(403);
                 }
-                return view('dashboard.laporan.index',$data);
             }else{
                 return abort(403);
             }
-        }else{
-            return abort(403);
+            
+        }catch(Exception){
+            return abort(500, json_encode([
+                'status' => 500,
+                'message' => 'Server Error'
+            ]));
         }
     }
 }
