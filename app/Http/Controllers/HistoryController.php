@@ -31,7 +31,7 @@ class HistoryController extends Controller
             try{
                 $data = User::with(['kelas' => function($query){
                         $query->select('id_kelas','nama_kelas', 'kompetensi_keahlian');
-                        }])->where('nisn', 'like', $val.'%')->orWhere('nama','like',$val.'%')->orWhere('nis','like',$val.'%')->paginate(10,['nisn','nis','nama','id_kelas','id_spp','alamat','no_telp','foto']);
+                        }])->where('nisn', 'like', $val.'%')->orWhere('nama','like',$val.'%')->orWhere('nis','like',$val.'%')->get(['nisn','nis','nama','id_kelas','id_spp','alamat','no_telp']);
                         
                         if(count($data) <= 0){
                             return response()->json(['message' => 'Data tidak ditemukan', 'status' => 'false']);

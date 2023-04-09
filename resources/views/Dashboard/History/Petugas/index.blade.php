@@ -54,35 +54,35 @@
 
 <script>
     // FITUR SEARCH
-$('#button-search').click(function(){
-    const getSearch = $('#input-search').val()
-    if(getSearch.trim() === ""){
-        return false;
-    }
-    fetch(`/dashboard/history-pembayaran/search/${getSearch}`)
-    .then(response => response.json())
-    .then(data => {
-        if(data.status == 'true'){
-            $('#data-table').html(data.data)
+    $('#button-search').click(function(){
+        const getSearch = $('#input-search').val()
+        if(getSearch.trim() === ""){
+            return false;
         }
-        if(data.status == 'false'){
-            $('#data-table').html(`
-            <tr>
-                <td colspan="5" style="padding: 20px;" id="default-text-table" style="color:red;">`+data.message+`</td>
-            </tr>
-            `)
+        fetch(`/dashboard/history-pembayaran/search/${getSearch}`)
+        .then(response => response.json())
+        .then(data => {
+            if(data.status == 'true'){
+                $('#data-table').html(data.data)
+            }
+            if(data.status == 'false'){
+                $('#data-table').html(`
+                <tr>
+                    <td colspan="5" style="padding: 20px;" id="default-text-table" style="color:red;">`+data.message+`</td>
+                </tr>
+                `)
 
+            }
+        })
+        .catch(error => {
+            return false;
+        })
+        })
+        
+        $('#input-search').on('keydown', function(event){
+        if (event.keyCode === 13) {
+            $('#button-search').trigger('click')
         }
-    })
-    .catch(error => {
-        return false;
-    })
-    })
-    
-    $('#input-search').on('keydown', function(event){
-    if (event.keyCode === 13) {
-        $('#button-search').trigger('click')
-    }
-});
+    });
 </script>
 @endsection

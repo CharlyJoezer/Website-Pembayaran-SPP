@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
         ]);
         User::create([
             'nisn' => '0351452353',
-            'id_kelas' => 2,
+            'id_kelas' => 2,        
             'id_spp' => 1,
             'nis' => 6275,
             'nama' => 'Reza',
@@ -49,7 +49,7 @@ class DatabaseSeeder extends Seeder
             'id_spp' => 1,
             'nis' => 1234,
             'nama' => 'Windah',
-            'password' => Hash::make('123456789'),
+            'password' => Hash::make('p'),
             'alamat' => 'Manggar Outside',
             'no_telp' => '089681357356'
         ]);

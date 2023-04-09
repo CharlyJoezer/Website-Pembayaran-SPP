@@ -49,7 +49,7 @@
             @if(Auth::guard('petugas')->check())
                 <img src="https://img.freepik.com/free-vector/illustration-businessman_53876-5856.jpg?w=740&t=st=1679310834~exp=1679311434~hmac=94071d701abdc8e5bcc3528214656f999c0f7b05ea25f3e1b59bbdefffd9b453">
                 <div class="auth-user-biodata" style="padding-left: 8px;">
-                    <div style="font-size:14px;font-weight:600;">{{ auth()->guard('petugas')->user()->nama_petugas }}</div>
+                    <div style="font-size:14px;font-weight:600;text-transform:capitalize;">{{ auth()->guard('petugas')->user()->nama_petugas }}</div>
                     <div style="font-size:10px;color:#555;">
                         Status : {{ auth()->guard('petugas')->user()->level }}
                     </div>
@@ -57,7 +57,7 @@
                 @elseif(Auth::guard('siswa')->check())
                 <img src="https://icon-library.com/images/student-icon-png/student-icon-png-15.jpg">
                 <div class="auth-user-biodata" style="padding-left: 8px;">
-                    <div style="font-size:14px;font-weight:600;">{{ auth()->guard('siswa')->user()->nama }}</div>
+                    <div style="font-size:14px;font-weight:600;text-transform:capitalize;">{{ auth()->guard('siswa')->user()->nama }}</div>
                     <div style="font-size:10px;color:#aaa;padding-left:1px;">
                         Status : Siswa
                     </div>
@@ -118,7 +118,6 @@
     
     <div class="content">
         @yield('content')
-        {{-- <div class="copyright">Copyright &#169; Smk Airlangga Balikpapan 2023</div> --}}
     </div>
     
     <script src="/js/dashboard.js"></script>

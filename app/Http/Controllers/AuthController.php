@@ -19,7 +19,7 @@ class AuthController extends Controller
 
 
     public function authLogin(Request $request){
-        // try{
+        try{
             if($request->as == 'siswa'){
                 $data = $request->validate([
                     'username_siswa' => 'required',
@@ -43,9 +43,9 @@ class AuthController extends Controller
             }else{
                 return back();
             }
-        // }catch(Exception){
-        //     return abort(500);
-        // }
+        }catch(Exception){
+            return abort(500);
+        }
 
     }
 
