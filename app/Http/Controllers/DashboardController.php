@@ -20,8 +20,10 @@ class DashboardController extends Controller
         try{
             if(Auth::guard('petugas')->check()){
                 $pembayaran = Pembayaran::all();
-            }else{
+            }else if(Auth::guard('siswa')->check()){
                 $pembayaran = Pembayaran::where('nisn', Auth::guard('siswa')->user()->nisn)->get();
+            }else{
+                return redirect('/login');
             }
             return view('beranda',[
                 'title' => 'Beranda | Dashboard',

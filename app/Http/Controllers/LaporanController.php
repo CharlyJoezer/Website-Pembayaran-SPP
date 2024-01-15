@@ -18,15 +18,15 @@ class LaporanController extends Controller
                         'siswa' => User::where('nisn', $nisn)->first(),
                         'data' => Pembayaran::where('nisn', $nisn)->get() 
                     ];
-                    if($data['siswa'] == null || $data['data']){
-                        return abort(404);
+                    if($data['siswa'] == null || $data['data'] == null){
+                        abort(404);
                     }
                     return view('dashboard.laporan.index',$data);
                 }else{
-                    return abort(403);
+                    abort(403);
                 }
             }else{
-                return abort(403);
+                abort(403);
             }
             
         }catch(Exception){
